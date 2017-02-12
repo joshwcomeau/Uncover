@@ -7,7 +7,7 @@
 
     <ul class="track-list">
       <li v-for="track in tracks">
-        <track-item :title="track.title" :type="track.type" :items="track.items"></track-item>
+        <track-component :title="track.title" :type="track.type" :items="track.items"></track-component>
       </li>
     </ul>
   </div>
@@ -15,11 +15,11 @@
 
 <script>
 import MaxWidthWrapper from './MaxWidthWrapper';
-import TrackItem from './TrackItem';
+import Track from './Track';
 
 export default {
   name: 'home',
-  components: { MaxWidthWrapper, TrackItem },
+  components: { MaxWidthWrapper, TrackComponent: Track },
 
   data: () => ({
     tracks: [
@@ -28,13 +28,13 @@ export default {
         type: 'author',
         items: [
           {
-            title: 'Going Rogue',
+            name: 'Going Rogue',
             imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/51t8CkDk9NL._SY445_QL70_.jpg',
           }, {
-            title: 'Corpies',
+            name: 'Corpies',
             imgSrc: 'https://images-na.ssl-images-amazon.com/images/I/51NexXGkXhL.jpg',
           }, {
-            title: 'Super Powereds, Year 1',
+            name: 'Super Powereds, Year 1',
             imgSrc: 'http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=B01FE9GH0S&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=thunpearpubl-20',
           },
         ],
@@ -44,11 +44,11 @@ export default {
         type: 'tv-show',
         items: [
           {
-            title: 'S07E11',
+            name: 'S07E11',
           }, {
-            title: 'S07E10',
+            name: 'S07E10',
           }, {
-            title: 'S07E19',
+            name: 'S07E19',
           },
         ],
       },
