@@ -1,17 +1,22 @@
 <template>
-  <div class="app-header">
+  <max-width-wrapper class="app-header">
     <h1>Uncover</h1>
-    <h4>Track books, TV shows, and more.</h4>
-  </div>
+    <h4>Find out when new stuff is available. Track authors, TV shows, and more.</h4>
+  </max-width-wrapper>
 </template>
 
 <script>
+import MaxWidthWrapper from './MaxWidthWrapper';
+
 export default {
   name: 'app-header',
   data() {
     return {
       msg: 'Welcome to Hell',
     };
+  },
+  components: {
+    MaxWidthWrapper,
   },
 };
 </script>
@@ -21,14 +26,23 @@ export default {
 @import '../constants/style-vars';
 
 .app-header {
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+
   h1 {
-    font-size: 28px;
-    color: $blue;
+    font-size: 72px;
+    line-height: 72px;
+    margin: 0;
+    margin-left: -5px;
+    letter-spacing: -5px;
+    color: $black;
   }
 
   h4 {
-    font-size: 16px;
-    color: $red;
+    font-size: 20px;
+    margin-top: 0.5rem;
+    color: $darkgray;
+    font-weight: 500;
   }
 }
 </style>
