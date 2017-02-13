@@ -29,7 +29,7 @@ export default {
 .track-tag {
   display: block;
   padding: 3px 8px;
-  border-radius: 4px;
+  border-radius: 0 0 4px 4px;
   color: $white;
   background: $darkgray;
   font-size: 11px;

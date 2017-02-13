@@ -20,8 +20,10 @@ export default {
   display: inline-block;
 
   img {
-    height: 150px;
-    margin-right: 5px;
+    height: $track-inner-height;
+    margin-right: $track-padding;
+    // box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    border-radius: 2px;
   }
 }
 </style>

@@ -16,7 +16,7 @@ module.exports.searchAmazon = (metadata, searchIndex, responseGroup) => {
   }
 
   if (typeof responseGroup === 'undefined') {
-    responseGroup = 'Images,ItemAttributes';
+    responseGroup = 'Small';
   }
 
   const params = Object.assign({ searchIndex, responseGroup }, metadata);

@@ -9,10 +9,14 @@ $purple: #673AB7;
 
 $white: #FFFFFF;
 $offwhite: #F5F5F5;
-$lightgray: #E0E0E0;
+$lightgray: #E8E8E8;
 $gray: #9E9E9E;
-$darkgray: #424242;
+$darkgray: #202020;
 $black: #111111;
 
 // SIZES
 $maxWidth: 1000px;
+
+$track-height: 160px;
+$track-padding: 5px;
+$track-inner-height: $track-height - ($track-padding * 2);

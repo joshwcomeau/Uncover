@@ -35,13 +35,13 @@ export default {
     margin: 0;
     margin-left: -5px;
     letter-spacing: -5px;
-    color: $black;
+    color: $white;
   }
 
   h4 {
     font-size: 20px;
     margin-top: 0.5rem;
-    color: $darkgray;
+    color: $gray;
     font-weight: 500;
   }
 }

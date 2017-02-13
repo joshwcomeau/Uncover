@@ -27,13 +27,13 @@ module.exports = async function(req, res) {
       throw new Error('Unrecognized category')
   }
 
-  console.log("Searching", query)
-
   const result = await searchAmazon(query);
 
-  const relevantBooks = pluckBooksFromResponse(searchTerm, result);
+  return result;
 
-  console.log('Got results', relevantBooks)
+  console.log(res)
+
+  const relevantBooks = pluckBooksFromResponse(searchTerm, result);
 
   return relevantBooks;
 }

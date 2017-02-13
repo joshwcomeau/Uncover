@@ -1,16 +1,22 @@
 <template>
-  <div class="home">
+  <max-width-wrapper class="home">
     <!-- TODO: A proper onboarding component here, to get the user started -->
-    <max-width-wrapper v-if="noTracksYet">
+    <div v-if="noTracksYet">
       No tracks yet! Add one
-    </max-width-wrapper>
+    </div>
 
     <ul class="track-list">
-      <li v-for="track in tracks">
-        <track-component :title="track.title" :type="track.type" :items="track.items"></track-component>
+      <li class="track" v-for="track in tracks">
+        <track-component
+          :title="track.title"
+          :image="track.image"
+          :type="track.type"
+          :items="track.items"
+          :lastUpdatedAt="track.lastUpdatedAt"
+        ></track-component>
       </li>
     </ul>
-  </div>
+  </max-width-wrapper>
 </template>
 
 <script>
@@ -25,7 +31,9 @@ export default {
     tracks: [
       {
         title: 'Drew Hayes',
+        image: 'https://images-na.ssl-images-amazon.com/images/I/51l0kTIGm3L._UX250_.jpg',
         type: 'author',
+        lastUpdatedAt: 1486950609300,
         items: [
           {
             name: 'Going Rogue',
@@ -41,7 +49,9 @@ export default {
       },
       {
         title: 'Big Bang Theory',
+        image: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/The_Big_Bang_Theory_(Official_Title_Card).png/250px-The_Big_Bang_Theory_(Official_Title_Card).png',
         type: 'tv-show',
+        lastUpdatedAt: 1483930309300,
         items: [
           {
             name: 'S07E11',
