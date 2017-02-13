@@ -1,4 +1,5 @@
 var path = require('path')
+var webpack = require('webpack')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
@@ -6,6 +7,10 @@ var vueLoaderConfig = require('./vue-loader.conf')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
+
+const icons = [
+  'material-settings',
+];
 
 module.exports = {
   entry: {
@@ -68,7 +73,19 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      }
+      },
+      {
+        test: /vue-icons/,
+        enforce: 'post',
+        loader: 'callback-loader'
+      },
     ]
-  }
+  },
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        callbackLoader: require('vue-icons/icon-loader')(icons)
+      }
+    })
+  ]
 }

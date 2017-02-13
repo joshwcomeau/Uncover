@@ -2,12 +2,28 @@
   <div class="track" :class="type">
     <header>
       <img class="track-image" :src="image" />
+
       <h3 class="track-name">{{ title }}</h3>
       <h6 class="track-last-updated-at" v-if="lastUpdatedAt">Latest release: {{ lastUpdatedAt | formatDate }}</h6>
+
+      <div class="track-actions">
+        <button-component icon="material-settings" iconColor="#9E9E9E" />
+      </div>
     </header>
+
     <ul class="track-items">
       <track-item v-for="item in items" :src="item.imgSrc" :name="item.name"></track-item>
     </ul>
+
+    <div class="resize-handle-container">
+      <div class="resize-handle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,13 +31,19 @@
 <script>
 import dateFnsFormat from 'date-fns/format';
 
+import Button from './Button';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import TrackTag from './TrackTag';
 import TrackItem from './TrackItem';
 
 export default {
   name: 'track',
-  components: { MaxWidthWrapper, TrackTag, TrackItem },
+  components: {
+    ButtonComponent: Button,
+    MaxWidthWrapper,
+    TrackTag,
+    TrackItem,
+  },
 
   props: ['title', 'image', 'type', 'lastUpdatedAt', 'items'],
 
@@ -41,8 +63,9 @@ export default {
   background: $white;
   margin: 1.5rem 0;
   height: $track-height;
-  box-shadow: 0px 4px 20px rgba(0,0,0,0.075);
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.5);
   display: flex;
+  border-radius: 2px;
 
   @media screen and (min-width: 600px) {
     &::before {
@@ -99,13 +122,47 @@ export default {
       color: $gray;
       margin: 0;
     }
+
+    .track-actions {
+      margin-top: 18px;
+    }
   }
 
   .track-items {
     flex: 1;
     background: $offwhite;
     border-left: 1px solid rgba(0,0,0,0.1);
-    padding: $track-padding;
+    border-right: 1px solid rgba(0,0,0,0.1);
+    padding: $track-padding $track-padding * 2;
+  }
+
+  $resize-handle-size: 24px;
+
+  &:hover .resize-handle-container {
+    .resize-handle {
+      opacity: 1;
+    }
+  }
+
+  .resize-handle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $resize-handle-size;
+
+    .resize-handle {
+      width: $resize-handle-size;
+      opacity: 0;
+      transition: opacity 500ms;
+      cursor: grab;
+
+      .bar {
+        width: $resize-handle-size - 6px;
+        height: 2px;
+        margin: 2px 3px;
+        background: $lightgray;
+      }
+    }
   }
 }
 </style>
