@@ -20,7 +20,8 @@
     "micro": "7.0.6",
     "vue": "2.1.10",
     "vue-icons": "github:kylewelsby/vue-icons#v2.0.1a",
-    "vue-router": "2.2.0"
+    "vue-router": "2.2.0",
+    "vuex": "2.1.2"
   },
   "devDependencies": {
     "autoprefixer": "6.7.2",
