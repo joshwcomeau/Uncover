@@ -4,7 +4,7 @@
       <img class="track-image" :src="image" />
 
       <h3 class="track-name">{{ title }}</h3>
-      <h6 class="track-last-updated-at" v-if="lastUpdatedAt">Latest release: {{ lastUpdatedAt | formatDate }}</h6>
+      <h6 class="track-last-updated-at" v-if="mostRecentUpdate">Latest release: {{ mostRecentUpdate | formatDate }}</h6>
 
       <div class="track-actions">
         <button-component icon="material-settings" iconColor="#9E9E9E" />
@@ -12,7 +12,7 @@
     </header>
 
     <ul class="track-items">
-      <track-item v-for="item in items" :src="item.imgSrc" :name="item.name"></track-item>
+      <track-item v-for="item in items" :src="item.image" :name="item.name"></track-item>
     </ul>
 
     <div class="resize-handle-container">
@@ -30,6 +30,7 @@
 
 <script>
 import dateFnsFormat from 'date-fns/format';
+import { mapGetters } from 'vuex';
 
 import Button from './Button';
 import MaxWidthWrapper from './MaxWidthWrapper';
@@ -45,7 +46,20 @@ export default {
     TrackItem,
   },
 
-  props: ['title', 'image', 'category', 'lastUpdatedAt', 'items'],
+  computed: {
+    ...mapGetters(['noTracksYet']),
+    mostRecentUpdate() {
+      console.log(this.computed, this.noTracksYet);
+
+      if (this.noTracksYet) {
+        return null;
+      }
+
+      return this.items[0].releaseDate;
+    },
+  },
+
+  props: ['title', 'image', 'category', 'isFetching', 'items'],
 
   filters: {
     formatDate: val => dateFnsFormat(val, 'MMM Do'),

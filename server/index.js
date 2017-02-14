@@ -5,11 +5,11 @@ const { populateAuthorInfo } = require('./helpers/author.helpers');
 
 
 module.exports = async function(req, res) {
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST');
-    res.setHeader('Access-Control-Allow-Headers', 'content-type');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Headers', 'content-type');
 
+  if (req.method === 'OPTIONS') {
     send(res, 200);
   }
 

@@ -11,8 +11,8 @@
           :title="track.title"
           :image="track.image"
           :category="track.category"
+          :isFetching="track.isFetching"
           :items="track.items"
-          :lastUpdatedAt="track.lastUpdatedAt"
         ></track-component>
       </li>
     </ul>

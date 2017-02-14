@@ -26,7 +26,6 @@ const getBindingFromMediaTypes = (mediaTypes) => {
 const pluckBooksFromResponse = (searchTerm, result) => {
   const books = result
     .map(book => {
-      console.log("Mapping", book)
       const id = get(book, 'ASIN[0]');
       const author = get(book, 'ItemAttributes[0].Author[0]');
       const title = get(book, 'ItemAttributes[0].Title[0]');
@@ -40,8 +39,6 @@ const pluckBooksFromResponse = (searchTerm, result) => {
       return { id, author, title, image, releaseDate };
     })
     .filter(book => !!book);
-
-  console.log("GOT", books.length)
 
   // If the supplied author name is a perfect match for any of the authors,
   // take that one. Sometimes the most popular author is wrong!
