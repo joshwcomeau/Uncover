@@ -10,7 +10,7 @@
         <track-component
           :title="track.title"
           :image="track.image"
-          :type="track.type"
+          :category="track.category"
           :items="track.items"
           :lastUpdatedAt="track.lastUpdatedAt"
         ></track-component>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import MaxWidthWrapper from './MaxWidthWrapper';
 import Track from './Track';
@@ -32,6 +32,15 @@ export default {
 
   computed: {
     ...mapGetters(['noTracksYet', 'trackList']),
+  },
+
+  methods: {
+    ...mapActions(['updateTrackInfo']),
+  },
+
+  created() {
+    // Fetch the items for our tracks
+    this.updateTrackInfo(this.trackList);
   },
 };
 </script>

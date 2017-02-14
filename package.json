@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "amazon-product-api": "0.4.3",
+    "async": "^2.1.4",
     "date-fns": "1.27.2",
     "lodash": "4.17.4",
     "micro": "7.0.6",

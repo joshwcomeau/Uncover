@@ -1,39 +1,26 @@
-const { json } = require('micro');
+const { json, send } = require('micro');
+const { mapLimit } = require('async');
 
-const {
-  searchAmazon,
-  getBindingFromMediaTypes,
-  pluckBooksFromResponse,
-} = require('./helpers/product-advertising-api');
+const { populateAuthorInfo } = require('./helpers/author.helpers');
 
 
 module.exports = async function(req, res) {
-  const { searchTerm, category, metadata } = await json(req);
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST');
+    res.setHeader('Access-Control-Allow-Headers', 'content-type');
+
+    send(res, 200);
+  }
+
+  const { tracks } = await json(req);
 
   let query;
 
-  // For now, only authors are supported.
-  switch (category) {
-    case 'author': {
-      query = {
-        author: searchTerm,
-        power: getBindingFromMediaTypes(metadata.mediaTypes),
-      };
+  // TODO: Support things other than authors.
+  const trackRequests = tracks.map(populateAuthorInfo);
 
-      break;
-    }
+  const results = await Promise.all(trackRequests);
 
-    default:
-      throw new Error('Unrecognized category')
-  }
-
-  const result = await searchAmazon(query);
-
-  return result;
-
-  console.log(res)
-
-  const relevantBooks = pluckBooksFromResponse(searchTerm, result);
-
-  return relevantBooks;
+  return results
 }

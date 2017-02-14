@@ -1,5 +1,5 @@
 <template>
-  <div class="track" :class="type">
+  <div class="track" :class="category">
     <header>
       <img class="track-image" :src="image" />
 
@@ -45,7 +45,7 @@ export default {
     TrackItem,
   },
 
-  props: ['title', 'image', 'type', 'lastUpdatedAt', 'items'],
+  props: ['title', 'image', 'category', 'lastUpdatedAt', 'items'],
 
   filters: {
     formatDate: val => dateFnsFormat(val, 'MMM Do'),

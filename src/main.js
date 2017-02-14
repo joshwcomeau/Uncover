@@ -15,21 +15,17 @@ const defaultState = {
         id: 'a',
         title: 'Drew Hayes',
         image: 'https://images-na.ssl-images-amazon.com/images/I/51l0kTIGm3L._UX250_.jpg',
-        type: 'author',
+        category: 'author',
+        mediaTypes: ['audiobook'],
       },
       b: {
         id: 'b',
         title: 'Jim Butcher',
-        type: 'author',
-      },
-      c: {
-        id: 'c',
-        title: 'Big Bang Theory',
-        image: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/The_Big_Bang_Theory_(Official_Title_Card).png/250px-The_Big_Bang_Theory_(Official_Title_Card).png',
-        type: 'tv-show',
+        category: 'author',
+        mediaTypes: ['ebook', 'print'],
       },
     },
-    allIds: ['a', 'b', 'c'],
+    allIds: ['a', 'b'],
   },
 };
 
