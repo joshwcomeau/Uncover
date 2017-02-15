@@ -14,7 +14,7 @@ const icons = [
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './client/index.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -26,15 +26,15 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     modules: [
-      resolve('src'),
+      resolve('client'),
       resolve('node_modules')
     ],
     alias: {
       'vue$': 'vue/dist/vue.common.js',
-      'src': resolve('src'),
-      'assets': resolve('src/assets'),
-      'components': resolve('src/components'),
-      'constants': resolve('src/constants'),
+      'client': resolve('client'),
+      'assets': resolve('client/assets'),
+      'components': resolve('client/components'),
+      'constants': resolve('client/constants'),
     }
   },
   module: {
@@ -43,7 +43,7 @@ module.exports = {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: "pre",
-        include: [resolve('src'), resolve('test')],
+        include: [resolve('client'), resolve('test')],
         options: {
           formatter: require('eslint-friendly-formatter')
         }
@@ -56,7 +56,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('client'), resolve('test')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
