@@ -15,6 +15,7 @@
   </button>
 </template>
 
+
 <script>
 import icon from 'vue-icons/icon';
 
@@ -23,7 +24,10 @@ export default {
   components: { icon },
 
   props: {
-    handleClick: Function,
+    handleClick: {
+      type: Function,
+      default() { /* noop */ },
+    },
     icon: String,
     iconSize: {
       type: Number,
@@ -49,7 +53,7 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped lang="scss">
 @import '../constants/style-vars';
 
