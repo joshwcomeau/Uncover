@@ -1,6 +1,7 @@
 const { get, countBy, max, values, findKey } = require('lodash');
 
-const { searchAmazon } = require('./product-advertising-api');
+const { searchAmazon } = require('../APIs/product-advertising.api');
+const { getAuthorInfo } = require('../APIs/goodreads.api');
 
 
 const getBindingFromMediaTypes = (mediaTypes) => {
