@@ -3,6 +3,7 @@
     <button-component
       size="large"
       color="purple"
+      :handleClick="goToAddTrackPage"
     >
       Add New Track
     </button-component>
@@ -12,11 +13,18 @@
 
 <script>
 import Button from './Button';
+import router from '../router';
 
 export default {
   name: 'new-track-cta',
   components: {
     ButtonComponent: Button,
+  },
+
+  methods: {
+    goToAddTrackPage() {
+      router.push('add-track');
+    },
   },
 };
 </script>

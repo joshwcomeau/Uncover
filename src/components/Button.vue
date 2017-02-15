@@ -1,5 +1,9 @@
 <template>
-  <button class="button" :class="[size, color, { 'no-border': noBorder }]">
+  <button
+    class="button"
+    :class="[size, color, { 'no-border': noBorder }]"
+    @click="handleClick"
+  >
     <icon
       class="icon"
       v-if="icon"
@@ -19,6 +23,7 @@ export default {
   components: { icon },
 
   props: {
+    handleClick: Function,
     icon: String,
     iconSize: {
       type: Number,

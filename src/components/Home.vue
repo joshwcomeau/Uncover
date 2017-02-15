@@ -1,5 +1,7 @@
 <template>
   <max-width-wrapper class="home">
+    <app-header />
+
     <!-- TODO: A proper onboarding component here, to get the user started -->
     <div v-if="noTracksYet">
       No tracks yet! Add one
@@ -25,6 +27,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
+import AppHeader from 'components/AppHeader';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import Track from './Track';
 import NewTrackCta from './NewTrackCta';
@@ -32,7 +35,7 @@ import NewTrackCta from './NewTrackCta';
 
 export default {
   name: 'home',
-  components: { MaxWidthWrapper, TrackComponent: Track, NewTrackCta },
+  components: { AppHeader, MaxWidthWrapper, TrackComponent: Track, NewTrackCta },
 
   computed: {
     ...mapGetters(['noTracksYet', 'trackList']),

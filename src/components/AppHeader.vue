@@ -1,8 +1,8 @@
 <template>
-  <max-width-wrapper class="app-header">
+  <div class="app-header">
     <h1>Uncover</h1>
     <h4>Find out when new stuff is available. Track authors, TV shows, and more.</h4>
-  </max-width-wrapper>
+  </div>
 </template>
 
 <script>
