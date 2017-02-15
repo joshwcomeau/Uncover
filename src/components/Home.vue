@@ -15,6 +15,9 @@
           :items="track.items"
         ></track-component>
       </li>
+      <li>
+        <new-track-cta />
+      </li>
     </ul>
   </max-width-wrapper>
 </template>
@@ -24,11 +27,12 @@ import { mapActions, mapGetters } from 'vuex';
 
 import MaxWidthWrapper from './MaxWidthWrapper';
 import Track from './Track';
+import NewTrackCta from './NewTrackCta';
 
 
 export default {
   name: 'home',
-  components: { MaxWidthWrapper, TrackComponent: Track },
+  components: { MaxWidthWrapper, TrackComponent: Track, NewTrackCta },
 
   computed: {
     ...mapGetters(['noTracksYet', 'trackList']),

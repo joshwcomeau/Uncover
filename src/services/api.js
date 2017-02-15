@@ -2,8 +2,16 @@ const apiHost = 'http://localhost:4000';
 
 const toJson = response => response.json();
 
-export const populateTrackItemsAndAvatar = (tracks) => {
-  const url = `${apiHost}`;
+
+export const getTrackInfo = ({ searchTerm, category }) => {
+  const path = `${apiHost}/get-track-info`;
+  const query = `searchTerm=${searchTerm}&category=${category}`;
+
+  return fetch(`${path}?${query}`).then(toJson);
+};
+
+export const getTrackItems = (tracks) => {
+  const url = `${apiHost}/get-track-items`;
 
   // Doing a POST because we're sending a lot of info for a GET.
   // Plus, in the future, this may also save the current 'snapshot' and return

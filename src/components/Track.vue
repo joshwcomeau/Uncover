@@ -7,7 +7,11 @@
       <h6 class="track-last-updated-at" v-if="mostRecentUpdate">Latest release: {{ mostRecentUpdate | formatDate }}</h6>
 
       <div class="track-actions">
-        <button-component icon="material-settings" iconColor="#9E9E9E" />
+        <button-component
+          icon="material-settings"
+          iconColor="#9E9E9E"
+          no-border
+        />
       </div>
     </header>
 
@@ -30,7 +34,7 @@
 
 <script>
 import dateFnsFormat from 'date-fns/format';
-import { mapGetters } from 'vuex';
+import get from 'lodash/get';
 
 import Button from './Button';
 import MaxWidthWrapper from './MaxWidthWrapper';
@@ -47,15 +51,8 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['noTracksYet']),
     mostRecentUpdate() {
-      console.log(this.computed, this.noTracksYet);
-
-      if (this.noTracksYet) {
-        return null;
-      }
-
-      return this.items[0].releaseDate;
+      return get(this.items, '0.releaseDate');
     },
   },
 
@@ -143,11 +140,35 @@ export default {
   }
 
   .track-items {
+    position: relative;
     flex: 1;
     background: $offwhite;
     border-left: 1px solid rgba(0,0,0,0.1);
     border-right: 1px solid rgba(0,0,0,0.1);
-    padding: $track-padding $track-padding * 2;
+    padding: $track-padding;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: $track-padding;
+      background: $offwhite;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50px;
+      background: linear-gradient(90deg, rgba(245,245,245,0), rgba(245,245,245,1));
+      pointer-events: none;
+    }
   }
 
   $resize-handle-size: 24px;

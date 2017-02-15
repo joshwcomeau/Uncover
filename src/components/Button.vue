@@ -1,5 +1,5 @@
 <template>
-  <button class="button">
+  <button class="button" :class="[size, color, { 'no-border': noBorder }]">
     <icon
       class="icon"
       v-if="icon"
@@ -28,6 +28,18 @@ export default {
       type: String,
       default: '#202020',
     },
+    size: {
+      type: String,
+      default: 'medium',
+    },
+    color: {
+      type: String,
+      default: 'white',
+    },
+    noBorder: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
@@ -37,12 +49,48 @@ export default {
 @import '../constants/style-vars';
 
 .button {
-  background: $white;
-  padding: 3px 16px;
-  border-radius: 4px;
   border: none;
-  border-left: 1px solid $lightgray;
-  border-right: 1px solid $lightgray;
-  border-bottom: 2px solid $gray;
+  border-radius: 4px;
+  border-left: 1px solid rgba(0,0,0,0.2);
+  border-right: 1px solid rgba(0,0,0,0.2);
+  border-bottom: 2px solid rgba(0,0,0,0.4);
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+
+  &.white {
+    background: $white;
+  }
+
+  &.teal {
+    background: $teal;
+    color: $white;
+  }
+
+  &.blue {
+    background: $blue;
+    color: $white;
+  }
+
+  &.purple {
+    background: lighten($purple, 5%);
+    color: $white;
+  }
+
+  &.medium {
+    padding: 3px 16px;
+    font-size: 12px;
+  }
+
+  &.large {
+    padding: 12px 36px;
+    font-size: 17px;
+    border-bottom: 3px solid rgba(0,0,0,0.4);
+    letter-spacing: -0.5px;
+  }
+
+  &.no-border {
+    border: none !important;
+  }
 }
 </style>
