@@ -25,6 +25,8 @@ module.exports = {
   // add your custom rules here
   'rules': {
     'quote-props': 0,
+    'quotes': 1,
+    'semi': 1,
     'import/prefer-default-export': 0,
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
