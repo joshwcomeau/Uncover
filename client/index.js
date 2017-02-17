@@ -10,22 +10,8 @@ import createStore from './store';
 // TODO: Pull this from localStorage.
 const defaultState = {
   tracks: {
-    byId: {
-      a: {
-        id: '7077654',
-        title: 'Drew Hayes',
-        image: 'https://images-na.ssl-images-amazon.com/images/I/51l0kTIGm3L._UX250_.jpg',
-        category: 'author',
-        mediaTypes: ['audiobook'],
-      },
-      b: {
-        id: '10746',
-        title: 'Jim Butcher',
-        category: 'author',
-        mediaTypes: ['ebook', 'print'],
-      },
-    },
-    allIds: ['a', 'b'],
+    byId: {},
+    allIds: [],
   },
 };
 

@@ -68,7 +68,7 @@ export default {
 
 
 <style scoped lang="scss">
-@import '../constants/style-vars';
+@import '../styles/variables';
 
 
 .track {

@@ -14,7 +14,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import '../constants/style-vars';
+@import '../styles/variables';
 
 .track-item {
   display: inline-block;

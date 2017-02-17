@@ -1,7 +1,10 @@
 const { json, send } = require('micro');
 const { mapLimit } = require('async');
 
-const { getTrackItems, getAuthorInfo } = require('./helpers/author.helpers');
+const {
+  getTrackItems,
+  getAuthorProfileAndTrackItems,
+} = require('./helpers/author.helpers');
 const { getPathnameAndQuery } = require('./helpers/misc.helpers');
 
 module.exports = async function(req, res) {
@@ -25,7 +28,7 @@ module.exports = async function(req, res) {
       const { searchTerm, category } = query;
 
       // TODO: Support things other than authors
-      results = await getAuthorInfo(searchTerm);
+      results = await getAuthorProfileAndTrackItems(searchTerm);
 
       break;
     }

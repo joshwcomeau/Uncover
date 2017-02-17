@@ -11,6 +11,7 @@ function resolve (dir) {
 const icons = [
   'material-settings',
   'material-sync',
+  'material-check',
 ];
 
 module.exports = {

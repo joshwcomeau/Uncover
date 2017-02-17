@@ -18,9 +18,29 @@
 
       <div class="form-section">
         <h4>Author</h4>
-        <input-with-underline v-model="searchTerm" :iconName="searchIcon" />
-        {{ searchTerm }}
+        <input-with-underline
+          v-model="searchTerm"
+          placeholder="eg. Drew Hayes"
+          :iconName="searchIcon.name"
+          :iconColor="searchIcon.color"
+          :iconSpin="searchIcon.spin"
+        />
+
+        <div class="book-examples" v-if="items">
+          <div class="cover"></div>
+          <div class="contents">
+            <h6>Examples from this author:</h6>
+
+            <ul class="book-example-list">
+              <li v-for="item in items">
+                <img class="book-example" :src="item.image" />
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
+
+
     </card-component>
 
   </max-width-wrapper>
@@ -49,33 +69,58 @@ export default {
       category: 'author',
       searchTerm: '',
       isSearching: false,
+      id: null,
+      name: null,
+      image: null,
+      items: null,
     };
   },
 
   computed: {
     searchIcon() {
-      if (!this.title && !this.isSearching) {
-        return null;
+      const isPristine = !this.name && !this.isSearching;
+
+      if (isPristine) {
+        return {};
       }
 
-      return this.isSearching ? 'material-sync' : 'material-settings';
+      return this.isSearching
+        ? { name: 'material-sync', spin: true, flip: true, color: '#555' }
+        : { name: 'material-check', spin: false, color: '#4CAF50' };
     },
   },
 
   watch: {
-    searchTerm() {
+    searchTerm(val) {
+      this.resetTrackInfo();
+
+      if (!val) {
+        return;
+      }
+
+      this.isSearching = true;
+
       this.fetchTrackInfo();
     },
   },
 
   methods: {
+    resetTrackInfo({ id, name, image, items } = {}) {
+      this.id = id;
+      this.name = name;
+      this.image = image;
+      this.items = items;
+    },
     fetchTrackInfo: debounce(async function debouncedFetchTrackInfo() {
       const { searchTerm, category } = this;
 
-      this.isSearching = true;
+      const trackInfo = await getTrackInfo({
+        searchTerm,
+        category,
+      });
 
-      const trackInfo = await getTrackInfo({ searchTerm, category });
-      console.log({ trackInfo });
+      this.isSearching = false;
+      this.resetTrackInfo(trackInfo);
     }, 200),
   },
 };
@@ -83,8 +128,22 @@ export default {
 
 
 <style scoped lang="scss">
-@import '../constants/style-vars';
+@import '../styles/variables';
 
+@keyframes slideDown {
+  0% {
+    transform: translateY(0);
+    opacity: 1
+  }
+  90% {
+    transform: translateY(100%);
+    opacity: 1
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0
+  }
+}
 .add-track {
   padding: 6rem 0;
   max-width: 650px;
@@ -108,8 +167,49 @@ h4 {
   font-size: 22px;
 }
 
+h6 {
+  font-size: 16px;
+  margin-bottom: 0.5rem;
+}
+
 label {
   display: block;
   font-size: 14px;
+}
+
+.book-examples {
+  position: relative;
+  margin: 1.5rem -2rem;
+  overflow: hidden;
+
+  .cover {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $white;
+
+    animation: slideDown 1000ms both 250ms;
+  }
+
+  .contents {
+    position: relative;
+    z-index: 1;
+    padding: 0.75rem 2rem;
+    background: $offwhite;
+    box-shadow: inset 0px 1px 2px rgba(0,0,0,0.1);
+  }
+}
+.book-example-list {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+
+  .book-example {
+    height: 100px;
+    margin-right: 0.5rem;
+  }
 }
 </style>

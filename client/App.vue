@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import './constants/style-vars';
+@import './styles/variables';
 
 html, body {
   padding: 0;

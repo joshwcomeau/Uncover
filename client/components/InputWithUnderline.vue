@@ -1,10 +1,17 @@
 <!-- Template -->
 <template>
   <span class="input-with-underline">
-    <input type="text" :value="value" @input="update($event.target.value)" />
+    <input
+      type="text"
+      :value="value"
+      :placeholder="placeholder"
+      @input="update($event.target.value)"
+    />
     <div class="border"></div>
     <icon
       class="icon"
+      :class="{ spin: iconSpin }"
+      :style="{ color: iconColor }"
       v-if="iconName"
       :size="iconSize"
       :name="iconName"
@@ -24,18 +31,9 @@ export default {
 
   components: { icon },
 
-  data() {
-    return {
-      iconStyle: {
-        color: this.iconColor,
-        width: `${this.iconSize}px`,
-        height: `${this.iconSize}px`,
-      },
-    };
-  },
-
   props: {
     value: String,
+    placeholder: String,
     iconName: String,
     iconColor: {
       type: String,
@@ -45,6 +43,7 @@ export default {
       type: Number,
       default: 16,
     },
+    iconSpin: Boolean,
   },
 
   methods: {
@@ -58,7 +57,12 @@ export default {
 
 <!-- Styles -->
 <style scoped lang="scss">
-@import '../constants/style-vars';
+@import '../styles/variables';
+
+@keyframes spin {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
 
 .input-with-underline {
   position: relative;
@@ -83,7 +87,7 @@ export default {
     right: 0;
     bottom: -2px;
     height: 2px;
-    background: $purple;
+    background: $blue;
     transform: scaleX(0);
     transition: transform 300ms;
   }
@@ -94,6 +98,14 @@ export default {
     right: 0.5rem;
     top: 0;
     bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    transform-origin: center center;
+
+    &.spin {
+      height: 19px !important; /* workaround for issue with spinning icons */
+      animation: spin 1s infinite linear;
+    }
   }
 
 }

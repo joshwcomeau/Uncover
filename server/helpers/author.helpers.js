@@ -24,7 +24,7 @@ const getBindingFromMediaTypes = (mediaTypes) => {
   return `binding:${bindingValue}`;
 }
 
-const pluckBooksFromResponse = (searchTerm, result) => {
+const pluckBooksFromAmazonResponse = (searchTerm, result) => {
   const books = result
     .map(book => {
       const id = get(book, 'ASIN[0]');
@@ -39,10 +39,13 @@ const pluckBooksFromResponse = (searchTerm, result) => {
 
       return { id, author, title, image, releaseDate };
     })
-    .filter(book => !!book);
+    .filter(book => (
+      !!book && !!book.author
+    ));
 
   // If the supplied author name is a perfect match for any of the authors,
   // take that one. Sometimes the most popular author is wrong!
+  console.log("BOOKS", books);
   const perfectMatchBook = books.find(book => (
     book.author.toLowerCase() === searchTerm.toLowerCase()
   ));
@@ -63,15 +66,16 @@ const pluckBooksFromResponse = (searchTerm, result) => {
   return books.filter(book => book.author === author);
 };
 
-module.exports.getTrackItems = (track) => {
-  const { id, title: author, mediaTypes } = track;
+const getTrackItems = (track) => {
+  const { id, name: author, mediaTypes } = track;
 
-  return searchAmazon({
-    id,
-    author,
-    power: getBindingFromMediaTypes(mediaTypes),
-  }).then(response => {
-    const relevantBooks = pluckBooksFromResponse(author, response);
+  const query = { id, author };
+  if (mediaTypes) {
+    query.power = getBindingFromMediaTypes(mediaTypes);
+  }
+
+  return searchAmazon(query).then(response => {
+    const relevantBooks = pluckBooksFromAmazonResponse(author, response);
 
     return Object.assign({}, track, {
       items: relevantBooks,
@@ -82,12 +86,22 @@ module.exports.getTrackItems = (track) => {
   });
 }
 
-module.exports.getAuthorInfo = async (searchTerm) => {
-  const { id } = await searchForAuthor(searchTerm);
-  const authorInfo = await getAuthorInfo(id);
+module.exports.getTrackItems = getTrackItems;
 
-  console.log(authorInfo);
-  // TODO: use ID to get actual info.
+module.exports.getAuthorProfileAndTrackItems = async (searchTerm) => {
+  const { id, name } = await searchForAuthor(searchTerm);
 
-  return authorInfo;
+  // Fetch the author's basic info (profile photo, bio), as well as their
+  // most recent releases.
+  const [authorInfo, trackItems] = await Promise.all([
+    getAuthorInfo(id),
+    getTrackItems({ id, name }),
+  ]);
+
+  return {
+    id,
+    name: trackItems.name, // Using Amazon's response for accuracy
+    image: authorInfo.image_url,
+    items: trackItems.items,
+  };
 }
