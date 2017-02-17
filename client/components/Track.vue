@@ -1,5 +1,5 @@
 <template>
-  <div class="track" :class="category">
+  <card-component class="track" :class="category">
     <header>
       <img class="track-image" :src="image" />
 
@@ -28,7 +28,7 @@
         <div class="bar"></div>
       </div>
     </div>
-  </div>
+  </card-component>
 </template>
 
 
@@ -37,6 +37,7 @@ import dateFnsFormat from 'date-fns/format';
 import get from 'lodash/get';
 
 import Button from './Button';
+import Card from './Card';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import TrackTag from './TrackTag';
 import TrackItem from './TrackItem';
@@ -45,6 +46,7 @@ export default {
   name: 'track',
   components: {
     ButtonComponent: Button,
+    CardComponent: Card,
     MaxWidthWrapper,
     TrackTag,
     TrackItem,
@@ -71,12 +73,8 @@ export default {
 
 .track {
   position: relative;
-  background: $white;
-  margin: 1.5rem 0;
   height: $track-height;
-  box-shadow: 0px 4px 20px rgba(0,0,0,0.5);
   display: flex;
-  border-radius: 2px;
 
   @media screen and (min-width: 600px) {
     &::before {

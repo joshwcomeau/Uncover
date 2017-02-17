@@ -10,6 +10,7 @@ function resolve (dir) {
 
 const icons = [
   'material-settings',
+  'material-sync',
 ];
 
 module.exports = {

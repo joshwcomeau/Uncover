@@ -29,13 +29,13 @@ export default {
       default() { /* noop */ },
     },
     icon: String,
-    iconSize: {
-      type: Number,
-      default: 16,
-    },
     iconColor: {
       type: String,
       default: '#202020',
+    },
+    iconSize: {
+      type: Number,
+      default: 16,
     },
     size: {
       type: String,

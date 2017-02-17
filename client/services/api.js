@@ -7,6 +7,7 @@ export const getTrackInfo = ({ searchTerm, category }) => {
   const path = `${apiHost}/get-track-info`;
   const query = `searchTerm=${searchTerm}&category=${category}`;
 
+  console.log("Getting", query)
   return fetch(`${path}?${query}`).then(toJson);
 };
 

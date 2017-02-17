@@ -40,4 +40,17 @@ ul {
   min-height: 100%;
   color: $black;
 }
+
+.italic {
+  font-style: italic;
+}
+
+input[type="text"] {
+  border: none;
+  background: none;
+  font-size: 16px;
+  color: $black;
+  outline: none;
+}
+
 </style>
