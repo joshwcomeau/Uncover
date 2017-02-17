@@ -1,7 +1,7 @@
 const { get, countBy, max, values, findKey } = require('lodash');
 
 const { searchAmazon } = require('../APIs/product-advertising.api');
-const { getAuthorInfo } = require('../APIs/goodreads.api');
+const { searchForAuthor, getAuthorInfo } = require('../APIs/goodreads.api');
 
 
 const getBindingFromMediaTypes = (mediaTypes) => {
@@ -63,7 +63,7 @@ const pluckBooksFromResponse = (searchTerm, result) => {
   return books.filter(book => book.author === author);
 };
 
-module.exports.populateAuthorInfo = (track) => {
+module.exports.getTrackItems = (track) => {
   const { id, title: author, mediaTypes } = track;
 
   return searchAmazon({
@@ -80,4 +80,14 @@ module.exports.populateAuthorInfo = (track) => {
     // TODO: Handle
     throw new Error(err);
   });
+}
+
+module.exports.getAuthorInfo = async (searchTerm) => {
+  const { id } = await searchForAuthor(searchTerm);
+  const authorInfo = await getAuthorInfo(id);
+
+  console.log(authorInfo);
+  // TODO: use ID to get actual info.
+
+  return authorInfo;
 }

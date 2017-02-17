@@ -1,7 +1,7 @@
 const { json, send } = require('micro');
 const { mapLimit } = require('async');
 
-const { populateAuthorInfo } = require('./helpers/author.helpers');
+const { getTrackItems, getAuthorInfo } = require('./helpers/author.helpers');
 const { getPathnameAndQuery } = require('./helpers/misc.helpers');
 
 module.exports = async function(req, res) {
@@ -22,7 +22,11 @@ module.exports = async function(req, res) {
     case '/get-track-info': {
       // Given a search term and a category, search Goodreads for the author,
       // and return the author ID and avatar image.
-      console.log({ query });
+      const { searchTerm, category } = query;
+
+      // TODO: Support things other than authors
+      results = await getAuthorInfo(searchTerm);
+
       break;
     }
 
@@ -30,9 +34,10 @@ module.exports = async function(req, res) {
       const { tracks } = await json(req);
 
       // TODO: Support things other than authors.
-      const trackRequests = tracks.map(populateAuthorInfo);
+      const trackRequests = tracks.map(getTrackItems);
 
       results = await Promise.all(trackRequests);
+      break;
     }
   }
 
