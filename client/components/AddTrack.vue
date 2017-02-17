@@ -40,6 +40,42 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="form-section">
+          <h4>Media Types</h4>
+          <label>
+            <input type="checkbox" v-model="mediaTypes" value="print" />
+            Print
+          </label>
+
+          <label>
+            <input type="checkbox" v-model="mediaTypes" value="ebook" />
+            E-Book
+          </label>
+
+          <label>
+            <input type="checkbox" v-model="mediaTypes" value="audiobook" />
+            Audiobook
+          </label>
+        </div>
+        <div class="form-section">
+          <h4>Language</h4>
+          <label>
+            <input type="checkbox" v-model="language" value="en" />
+            English
+          </label>
+
+          <label>
+            <input type="checkbox" v-model="language" value="fr" />
+            French
+          </label>
+
+          <label>
+            <input type="checkbox" v-model="language" value="sp" />
+            Spanish
+          </label>
+        </div>
+      </div>
 
     </card-component>
 
@@ -73,6 +109,8 @@ export default {
       name: null,
       image: null,
       items: null,
+      mediaTypes: ['print'],
+      language: ['en'],
     };
   },
 
@@ -144,18 +182,22 @@ export default {
     opacity: 0
   }
 }
+
+$content-padding: 2rem;
+
+
 .add-track {
   padding: 6rem 0;
   max-width: 650px;
 }
 
 .main-content {
-  padding: 2rem;
+  padding: $content-padding;
   line-height: 1.65;
 }
 
 .form-section {
-  margin-bottom: 2rem;
+  margin-bottom: $content-padding;
 }
 
 h2 {
@@ -179,7 +221,7 @@ label {
 
 .book-examples {
   position: relative;
-  margin: 1.5rem -2rem;
+  margin: 1.5rem $content-padding * -1;
   overflow: hidden;
 
   .cover {
@@ -197,19 +239,30 @@ label {
   .contents {
     position: relative;
     z-index: 1;
-    padding: 0.75rem 2rem;
+    padding: 1rem $content-padding;
     background: $offwhite;
-    box-shadow: inset 0px 1px 2px rgba(0,0,0,0.1);
+    box-shadow: inset 0px 1px 4px rgba(0,0,0,0.2);
   }
 }
 .book-example-list {
   display: flex;
   overflow: hidden;
   white-space: nowrap;
+  margin-bottom: 0;
 
   .book-example {
     height: 100px;
     margin-right: 0.5rem;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+
+  & > div {
+    flex: 1;
+    padding-right: 1rem;
   }
 }
 </style>
