@@ -1,8 +1,12 @@
 <template>
   <div class="header-wrapper">
     <header class="header">
-      <max-width-wrapper>
-        <h1>Uncover</h1>
+      <max-width-wrapper class="wrapper">
+        <h1>
+          <router-link to="/" class="home-link">
+            Uncover
+          </router-link>
+        </h1>
         <main-navigation />
       </max-width-wrapper>
     </header>
@@ -12,12 +16,14 @@
 
 <script>
 import MaxWidthWrapper from './MaxWidthWrapper';
+import MainNavigation from './MainNavigation';
 
 export default {
   name: 'app-header',
 
   components: {
     MaxWidthWrapper,
+    MainNavigation,
   },
 };
 </script>
@@ -28,24 +34,27 @@ export default {
 
 .header {
   position: fixed;
-  z-index: 10;
+  z-index: 1;
   top: 0;
   left: 0;
   right: 0;
   height: $header-height;
   background: $black;
-  border-bottom: 1px solid lighten($darkgray, 5%);
 
   h1 {
-    font-size: 24px;
-    line-height: $header-height - 2px;
-    margin: 0;
-    letter-spacing: -1px;
+    position: absolute;
+    left: 1rem;
+    bottom: 6px;
+    font-size: 56px;
+    letter-spacing: -2px;
+  }
+
+  .home-link {
     color: $white;
   }
 }
 
-.header-spacer {
+.header-spacer, .wrapper {
   position: relative;
   height: $header-height;
 }

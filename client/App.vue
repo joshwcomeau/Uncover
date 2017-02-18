@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <app-header />
-    <router-view></router-view>
+    <div id="main-content">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -33,12 +35,15 @@ ul {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 *, *:before, *:after {
   box-sizing: border-box;
 }
 
 #app {
-  background: $darkgray;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -46,8 +51,19 @@ ul {
   color: $black;
 }
 
+#main-content {
+  position: relative;
+  z-index: 2;
+  background: $darkgray;
+  border-top: 1px solid lighten($darkgray, 5%);
+}
+
 .italic {
   font-style: italic;
+}
+
+.bold {
+  font-weight: 900;
 }
 
 input[type="text"] {
