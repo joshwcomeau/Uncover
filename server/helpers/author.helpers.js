@@ -70,12 +70,16 @@ const getTrackItems = (track) => {
   } = track;
 
   const power = {
+    'author-exact': author,
     // TODO: Support other languages?
     language: 'english',
-    binding: getBindingFromMediaTypes(mediaTypes)
   };
 
-  const query = { id, author, power: createPowerString(power) };
+  if (mediaTypes) {
+    power.binding = getBindingFromMediaTypes(mediaTypes);
+  }
+
+  const query = { power: createPowerString(power) };
 
   return searchAmazon(query).then(response => {
     const relevantBooks = pluckBooksFromAmazonResponse(author, response);
@@ -98,7 +102,7 @@ module.exports.getAuthorProfileAndTrackItems = async (searchTerm) => {
   // most recent releases.
   const [authorInfo, trackItems] = await Promise.all([
     getAuthorInfo(id),
-    getTrackItems({ id, name }),
+    getTrackItems({ id, name, meta: {} }),
   ]);
 
   return {
