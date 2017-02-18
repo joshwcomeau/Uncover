@@ -1,7 +1,8 @@
 <template>
   <button
     class="button"
-    :class="[size, color, { 'no-border': noBorder }]"
+    :class="[size, color, { 'no-border': noBorder, disabled }]"
+    :disabled="disabled"
     @click="handleClick"
   >
     <icon
@@ -24,6 +25,7 @@ export default {
   components: { icon },
 
   props: {
+    disabled: Boolean,
     handleClick: {
       type: Function,
       default() { /* noop */ },
@@ -65,7 +67,11 @@ export default {
   border-bottom: 2px solid rgba(0,0,0,0.4);
   font-weight: 500;
   outline: none;
-  cursor: pointer;
+
+  &.disabled {
+    background-color: $gray !important;
+    text-shadow: 1px 1px 1px darken($gray, 10%) !important;
+  }
 
   &.white {
     background: $white;
@@ -82,8 +88,14 @@ export default {
   }
 
   &.purple {
-    background: lighten($purple, 5%);
+    background: $purple;
     color: $white;
+    text-shadow: 1px 1px 1px $purple;
+    transition: background 300ms;
+
+    &:hover {
+      background: lighten($purple, 5%);
+    }
   }
 
   &.medium {

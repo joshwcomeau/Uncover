@@ -10,10 +10,11 @@
     <ul class="track-list">
       <li class="track" v-for="track in trackList">
         <track-component
-          :title="track.title"
+          :name="track.name"
           :image="track.image"
           :category="track.category"
           :isFetching="track.isFetching"
+          :meta="track.meta"
           :items="track.items"
         ></track-component>
       </li>
@@ -42,12 +43,12 @@ export default {
   },
 
   methods: {
-    ...mapActions(['updateTrackInfo']),
+    ...mapActions(['fetchTrackData']),
   },
 
   created() {
     // Fetch the items for our tracks
-    this.updateTrackInfo(this.trackList);
+    this.fetchTrackData(this.trackList);
   },
 };
 </script>

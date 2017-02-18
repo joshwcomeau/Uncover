@@ -58,46 +58,43 @@
             Audiobook
           </label>
         </div>
-        <div class="form-section">
-          <h4>Language</h4>
-          <label>
-            <input type="checkbox" v-model="language" value="en" />
-            English
-          </label>
-
-          <label>
-            <input type="checkbox" v-model="language" value="fr" />
-            French
-          </label>
-
-          <label>
-            <input type="checkbox" v-model="language" value="sp" />
-            Spanish
-          </label>
-        </div>
       </div>
 
+      <footer>
+        <button-component
+          :disabled="!isValid"
+          size="large"
+          color="purple"
+          class="add-track-button"
+          :handleClick="saveTrack"
+        >
+          Add Track
+        </button-component>
+      </footer>
     </card-component>
-
   </max-width-wrapper>
 </template>
 
 <script>
 import debounce from 'lodash/debounce';
+import { mapActions } from 'vuex';
+import router from '../router';
 
 import { getTrackInfo } from '../services/api';
 
-import MaxWidthWrapper from './MaxWidthWrapper';
+import Button from './Button';
 import Card from './Card';
 import InputWithUnderline from './InputWithUnderline';
+import MaxWidthWrapper from './MaxWidthWrapper';
 
 
 export default {
   name: 'home',
   components: {
-    MaxWidthWrapper,
+    ButtonComponent: Button,
     CardComponent: Card,
     InputWithUnderline,
+    MaxWidthWrapper,
   },
 
   data() {
@@ -110,7 +107,6 @@ export default {
       image: null,
       items: null,
       mediaTypes: ['print'],
-      language: ['en'],
     };
   },
 
@@ -125,6 +121,15 @@ export default {
       return this.isSearching
         ? { name: 'material-sync', spin: true, flip: true, color: '#555' }
         : { name: 'material-check', spin: false, color: '#4CAF50' };
+    },
+    isValid() {
+      return (
+        !this.isSearching &&
+        this.category &&
+        this.id &&
+        this.name &&
+        this.mediaTypes.length > 0
+      );
     },
   },
 
@@ -143,12 +148,15 @@ export default {
   },
 
   methods: {
+    ...mapActions(['saveNewTrack']),
+
     resetTrackInfo({ id, name, image, items } = {}) {
       this.id = id;
       this.name = name;
       this.image = image;
       this.items = items;
     },
+
     fetchTrackInfo: debounce(async function debouncedFetchTrackInfo() {
       const { searchTerm, category } = this;
 
@@ -160,6 +168,22 @@ export default {
       this.isSearching = false;
       this.resetTrackInfo(trackInfo);
     }, 200),
+
+    saveTrack() {
+      const track = {
+        id: this.id,
+        name: this.name,
+        image: this.image,
+        category: this.category,
+        meta: {
+          mediaTypes: this.mediaTypes,
+        },
+      };
+
+      this.saveNewTrack(track);
+
+      router.push('/');
+    },
   },
 };
 </script>
@@ -263,6 +287,16 @@ label {
   & > div {
     flex: 1;
     padding-right: 1rem;
+  }
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+
+  .add-track-button {
+    width: 250px;
+    max-width: 100%;
   }
 }
 </style>

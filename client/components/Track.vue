@@ -3,7 +3,7 @@
     <header>
       <img class="track-image" :src="image" />
 
-      <h3 class="track-name">{{ title }}</h3>
+      <h3 class="track-name">{{ name }}</h3>
       <h6 class="track-last-updated-at" v-if="mostRecentUpdate">Latest release: {{ mostRecentUpdate | formatDate }}</h6>
 
       <div class="track-actions">
@@ -58,7 +58,7 @@ export default {
     },
   },
 
-  props: ['title', 'image', 'category', 'isFetching', 'items'],
+  props: ['name', 'image', 'category', 'meta', 'isFetching', 'items'],
 
   filters: {
     formatDate: val => dateFnsFormat(val, 'MMM Do'),
