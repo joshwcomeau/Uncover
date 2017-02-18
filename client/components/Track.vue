@@ -147,24 +147,14 @@ export default {
     overflow: hidden;
     white-space: nowrap;
 
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: $track-padding;
-      background: $offwhite;
-    }
-
     &:after {
       content: '';
       position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
-      width: 50px;
-      background: linear-gradient(90deg, rgba(245,245,245,0), rgba(245,245,245,1));
+      width: 20px;
+      background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,0.25));
       pointer-events: none;
     }
   }

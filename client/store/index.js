@@ -9,9 +9,17 @@ import plugins from './plugins';
 Vue.use(Vuex);
 
 
+const defaultState = {
+  tracks: {
+    byId: {},
+    allIds: [],
+  },
+};
+
+
 function createStore(initialState) {
   return new Vuex.Store({
-    state: initialState,
+    state: initialState || defaultState,
     actions,
     getters,
     mutations,

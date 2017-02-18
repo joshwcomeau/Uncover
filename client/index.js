@@ -8,16 +8,14 @@ import createStore from './store';
 import { LOCAL_STORAGE_KEY } from './constants';
 
 
-const defaultState = {
-  tracks: JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)),
-};
+const initialState = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
 
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  store: createStore(defaultState),
+  store: createStore(initialState),
   template: '<App/>',
   components: { App },
 });
