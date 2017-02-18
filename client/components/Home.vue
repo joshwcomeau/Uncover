@@ -1,6 +1,8 @@
 <template>
   <max-width-wrapper class="home">
-    <app-header />
+    <h4 class="heading">
+      <span class="tighter">Y</span>our <span class="tighter">T</span>racks
+    </h4>
 
     <!-- TODO: A proper onboarding component here, to get the user started -->
     <div v-if="noTracksYet">
@@ -53,13 +55,18 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped lang="scss">
 @import '../styles/variables';
 
-.home {
-  p {
-    font-style: italic;
+.heading {
+  padding: 5rem 0 0.5rem;
+  font-size: 40px;
+  color: $white;
+  letter-spacing: -1px;
+
+  .tighter {
+    letter-spacing: -6px;
   }
 }
 </style>

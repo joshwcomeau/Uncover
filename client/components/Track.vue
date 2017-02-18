@@ -104,7 +104,7 @@ export default {
     color: $black;
     margin-left: $track-padding * 2;
     text-align: center;
-    transform: translateY(-16px);
+    transform: translateY(-8px);
 
     .track-image {
       display: block;
