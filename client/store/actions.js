@@ -1,8 +1,8 @@
-import { TRACK_INFO_REQUEST, TRACK_INFO_RECEIVE } from './mutations';
+import { SAVE_NEW_TRACK, TRACK_INFO_REQUEST, TRACK_INFO_RECEIVE } from './mutations';
 import { getTrackItems } from '../services/api';
 
 
-export const updateTrackInfo = async ({ commit }, tracks) => {
+export const fetchTrackData = async ({ commit }, tracks) => {
   const trackIds = tracks.map(({ id }) => id);
 
   commit(TRACK_INFO_REQUEST, { trackIds });
@@ -11,3 +11,7 @@ export const updateTrackInfo = async ({ commit }, tracks) => {
 
   commit(TRACK_INFO_RECEIVE, { populatedTracks });
 };
+
+export const saveNewTrack = ({ commit }, track) => {
+  commit(SAVE_NEW_TRACK, { track });
+}
