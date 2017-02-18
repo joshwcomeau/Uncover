@@ -3,6 +3,7 @@ node_modules/
 dist/
 npm-debug.log
 test/unit/coverage
+test/server/coverage
 test/e2e/reports
 selenium-debug.log
 config/server.env.js
