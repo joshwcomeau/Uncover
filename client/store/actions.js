@@ -14,4 +14,4 @@ export const fetchTrackData = async ({ commit }, tracks) => {
 
 export const saveNewTrack = ({ commit }, track) => {
   commit(SAVE_NEW_TRACK, { track });
-}
+};

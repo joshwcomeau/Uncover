@@ -5,14 +5,11 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import createStore from './store';
+import { LOCAL_STORAGE_KEY } from './constants';
 
 
-// TODO: Pull this from localStorage.
 const defaultState = {
-  tracks: {
-    byId: {},
-    allIds: [],
-  },
+  tracks: JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)),
 };
 
 

@@ -167,7 +167,7 @@ export default {
 
       this.isSearching = false;
       this.resetTrackInfo(trackInfo);
-    }, 200),
+    }, 750),
 
     saveTrack() {
       const track = {
