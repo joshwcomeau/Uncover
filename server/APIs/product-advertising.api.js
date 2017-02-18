@@ -8,6 +8,37 @@ const client = amazon.createClient({
   awsTag: ASSOCIATE_TAG,
 });
 
+module.exports.getBindingFromMediaTypes = (mediaTypes) => {
+  let bindings = [];
+
+  if (mediaTypes.includes('print')) {
+    bindings.push('hardcover', 'paperback');
+  }
+
+  if (mediaTypes.includes('ebook')) {
+    bindings.push('kindle');
+  }
+
+  if (mediaTypes.includes('audiobook')) {
+    bindings.push('audible');
+  }
+
+  return bindings;
+};
+
+module.exports.createPowerString = power => (
+  Object.keys(power)
+    .map(powerKey => {
+      let powerVal = power[powerKey];
+
+      if (Array.isArray(powerVal)) {
+        powerVal = powerVal.join(' or ');
+      }
+
+      return `${powerKey}:${powerVal}`;
+    })
+    .join(' and ')
+);
 
 module.exports.searchAmazon = (metadata, options = {}, retries = 4) => {
   const searchIndex = options.searchIndex || 'Books';

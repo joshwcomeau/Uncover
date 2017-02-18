@@ -1,11 +1,11 @@
 const { json, send } = require('micro');
 const { mapLimit } = require('async');
 
+const { getPathnameAndQuery } = require('./helpers/misc.helpers');
 const {
   getTrackItems,
   getAuthorProfileAndTrackItems,
 } = require('./helpers/author.helpers');
-const { getPathnameAndQuery } = require('./helpers/misc.helpers');
 
 module.exports = async function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');

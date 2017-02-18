@@ -1,28 +1,13 @@
 const { get, countBy, max, values, findKey } = require('lodash');
+const isFuture = require('date-fns/is_future');
 
-const { searchAmazon } = require('../APIs/product-advertising.api');
+const {
+  getBindingFromMediaTypes,
+  createPowerString,
+  searchAmazon,
+} = require('../APIs/product-advertising.api');
 const { searchForAuthor, getAuthorInfo } = require('../APIs/goodreads.api');
 
-
-const getBindingFromMediaTypes = (mediaTypes) => {
-  let bindings = [];
-
-  if (mediaTypes.includes('print')) {
-    bindings.push('hardcover', 'paperback');
-  }
-
-  if (mediaTypes.includes('ebook')) {
-    bindings.push('kindle');
-  }
-
-  if (mediaTypes.includes('audiobook')) {
-    bindings.push('audible');
-  }
-
-  const bindingValue = bindings.join(' or ');
-
-  return `binding:${bindingValue}`;
-}
 
 const pluckBooksFromAmazonResponse = (searchTerm, result) => {
   const books = result
@@ -33,7 +18,19 @@ const pluckBooksFromAmazonResponse = (searchTerm, result) => {
       const image = get(book, 'LargeImage[0].URL[0]');
       const releaseDate = get(book, 'ItemAttributes[0].ReleaseDate[0]');
 
-      if (!author && !title && !image) {
+      const isMissingData = !author || !title || !image
+
+      // Ignore books in the future
+      const isPreorder = isFuture(releaseDate);
+
+      // Ignore comic books
+      // TODO: figure out if this strategy is dependable. If so, enable
+      // comic search as an option?
+      const isComic = (
+        get(book, 'ItemAttributes[0].PartNumber[0]') === 'illustrations'
+      );
+
+      if (isMissingData || isPreorder || isComic) {
         return null;
       }
 
@@ -45,7 +42,6 @@ const pluckBooksFromAmazonResponse = (searchTerm, result) => {
 
   // If the supplied author name is a perfect match for any of the authors,
   // take that one. Sometimes the most popular author is wrong!
-  console.log("BOOKS", books);
   const perfectMatchBook = books.find(book => (
     book.author.toLowerCase() === searchTerm.toLowerCase()
   ));
@@ -67,12 +63,19 @@ const pluckBooksFromAmazonResponse = (searchTerm, result) => {
 };
 
 const getTrackItems = (track) => {
-  const { id, name: author, mediaTypes } = track;
+  const {
+    id,
+    name: author,
+    meta: { mediaTypes },
+  } = track;
 
-  const query = { id, author };
-  if (mediaTypes) {
-    query.power = getBindingFromMediaTypes(mediaTypes);
-  }
+  const power = {
+    // TODO: Support other languages?
+    language: 'english',
+    binding: getBindingFromMediaTypes(mediaTypes)
+  };
+
+  const query = { id, author, power: createPowerString(power) };
 
   return searchAmazon(query).then(response => {
     const relevantBooks = pluckBooksFromAmazonResponse(author, response);
