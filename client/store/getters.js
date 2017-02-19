@@ -1,3 +1,5 @@
+export const trackIds = ({ tracks }) => tracks.allIds;
+
 export const trackList = ({ tracks }) => (
   tracks.allIds.map(id => tracks.byId[id])
 );

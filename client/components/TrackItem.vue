@@ -1,6 +1,8 @@
 <template>
   <li class="track-item">
-    <img :src="src" />
+    <a :href="url" target="_blank" rel="noopener noreferrer">
+      <img :alt="title" :title="title" :src="src" />
+    </a>
   </li>
 </template>
 
@@ -8,7 +10,7 @@
 export default {
   name: 'track-item',
 
-  props: ['src'],
+  props: ['title', 'src', 'url'],
 };
 </script>
 

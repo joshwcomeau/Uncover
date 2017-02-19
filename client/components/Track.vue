@@ -10,6 +10,7 @@
 
       <div class="track-actions">
         <button-component
+          :handleClick="toggleEditing"
           icon="material-settings"
           iconColor="#9E9E9E"
           no-border
@@ -17,29 +18,63 @@
       </div>
     </header>
 
-    <div class="track-item-wrapper">
-      <ul class="track-items" v-if="!isFetching">
-        <track-item
-          v-for="item in items"
-          :src="item.image"
-          :name="item.name"
-        />
-      </ul>
+    <section class="main-content">
+      <div class="track-item-wrapper" v-if="!isEditing">
+        <ul class="track-items" v-if="!isFetching">
+          <track-item
+            v-for="item in items"
+            :src="item.image"
+            :title="item.title"
+            :url="item.url"
+          />
+        </ul>
 
-      <div v-if="isFetching">
+        <div v-if="isFetching">
+          <spinner-component class="spinner" />
 
-        <spinner-component class="spinner" />
-
-        <div class="placeholders">
-          <div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div>
+          <div class="placeholders">
+            <!-- Generate a few "blank" books while it loads -->
+            <div class="placeholder" v-for="n in 8"></div>
+          </div>
         </div>
       </div>
-    </div>
+
+      <div class="settings" v-if="isEditing">
+        <h4>Media Types</h4>
+        <label>
+          <input
+            type="checkbox"
+            value="print"
+            v-model="mediaTypes"
+          />
+          Print
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            value="ebook"
+            v-model="mediaTypes"
+          />
+          E-Book
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            value="audiobook"
+            v-model="mediaTypes"
+          />
+          Audiobook
+        </label>
+      </div>
+    </section>
   </card-component>
 </template>
 
 
 <script>
+import { mapActions } from 'vuex';
 import dateFnsFormat from 'date-fns/format';
 import get from 'lodash/get';
 
@@ -61,16 +96,42 @@ export default {
     TrackItem,
   },
 
+  data() {
+    return {
+      isEditing: false,
+    };
+  },
+
+  methods: {
+    ...mapActions(['updateTrackMetadata']),
+    toggleEditing() {
+      this.isEditing = !this.isEditing;
+    },
+  },
+
   computed: {
     latestReleaseDate() {
       return get(this.items, '0.releaseDate');
     },
+    mediaTypes: {
+      get() { return this.meta.mediaTypes; },
+      set(val) {
+        this.updateTrackMetadata({
+          trackId: this.id,
+          meta: {
+            mediaTypes: val,
+          },
+        });
+      },
+    },
   },
 
-  props: ['name', 'image', 'category', 'meta', 'isFetching', 'items'],
+  props: [
+    'id', 'name', 'image', 'category', 'meta', 'isFetching', 'items',
+  ],
 
   filters: {
-    formatDate: val => dateFnsFormat(val, 'MMM Do'),
+    formatDate: val => dateFnsFormat(val, 'MMM Do YYYY'),
   },
 };
 </script>
@@ -145,15 +206,19 @@ export default {
     }
   }
 
-  .track-item-wrapper {
+  .main-content {
     position: relative;
     height: $track-height;
     background: $offwhite;
-    padding: $track-padding;
     flex: 1;
     border-left: 1px solid rgba(0,0,0,0.1);
+    border-radius: 0 2px 2px 0;
     overflow: hidden;
     white-space: nowrap;
+  }
+
+  .track-item-wrapper {
+    padding: $track-padding;
 
     &:after {
       content: '';
@@ -198,6 +263,18 @@ export default {
     }
   }
 
+  .settings {
+    padding: 1rem;
+
+    h4 {
+      padding-bottom: 0.25rem;
+    }
+
+    label {
+      margin-right: 3rem;
+    }
+  }
+
 
   @media screen and (max-width: $break-mobile) {
     flex-direction: column;
@@ -223,7 +300,7 @@ export default {
       top: 0;
       right: 0;
     }
-    .track-item-wrapper {
+    .main-content {
       border-radius: 0 0 2px 2px;
     }
   }
