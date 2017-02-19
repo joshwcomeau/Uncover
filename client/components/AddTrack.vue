@@ -63,7 +63,7 @@
 
 <script>
 import debounce from 'lodash/debounce';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import router from '../router';
 
 import { getTrackInfo } from '../services/api';
@@ -99,6 +99,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['trackIds']),
     searchIcon() {
       const isPristine = !this.name && !this.isSearching;
 
@@ -158,6 +159,12 @@ export default {
     }, 750),
 
     saveTrack() {
+      // Validate that we're adding isn't already present.
+      if (this.trackIds.includes(this.id)) {
+        alert("Sorry, it looks like you've already added this item!\n\nYou can modify an existing item by clicking the little gear on the track.");
+        return;
+      }
+
       const track = {
         id: this.id,
         name: this.name,

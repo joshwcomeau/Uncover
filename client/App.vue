@@ -49,6 +49,8 @@ a {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100%;
   color: $black;
+  display: flex;
+  flex-direction: column;
 }
 
 #main-content {
@@ -57,6 +59,7 @@ a {
   background: $darkgray;
   border-top: 1px solid lighten($darkgray, 5%);
   box-shadow: 0px -2px 20px rgba(17, 17, 17, 1);
+  flex: 1;
 }
 
 .italic {
