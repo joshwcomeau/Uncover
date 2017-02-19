@@ -28,7 +28,7 @@
 
       <div v-if="isFetching">
 
-        <book-spinner class="spinner" />
+        <spinner-component class="spinner" />
 
         <div class="placeholders">
           <div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div>
@@ -43,20 +43,20 @@
 import dateFnsFormat from 'date-fns/format';
 import get from 'lodash/get';
 
-import BookSpinner from './BookSpinner';
 import Button from './Button';
 import Card from './Card';
 import MaxWidthWrapper from './MaxWidthWrapper';
+import Spinner from './Spinner';
 import TrackTag from './TrackTag';
 import TrackItem from './TrackItem';
 
 export default {
   name: 'track',
   components: {
-    BookSpinner,
     ButtonComponent: Button,
     CardComponent: Card,
     MaxWidthWrapper,
+    SpinnerComponent: Spinner,
     TrackTag,
     TrackItem,
   },
@@ -176,6 +176,7 @@ export default {
 
     .spinner {
       position: absolute;
+      z-index: 2;
       top: 0;
       left: 0;
       right: 0;
