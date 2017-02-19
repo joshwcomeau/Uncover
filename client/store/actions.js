@@ -3,6 +3,7 @@ import {
   TRACK_INFO_REQUEST,
   TRACK_INFO_RECEIVE,
   UPDATE_TRACK_METADATA,
+  DELETE_TRACK,
 } from './mutations';
 import { getTrackItems } from '../services/api';
 
@@ -31,4 +32,9 @@ export const updateTrackMetadata = (store, { trackId, meta }) => {
   // dispatch our next action.
   const track = store.state.tracks.byId[trackId];
   dispatch('fetchTrackData', [track]);
+};
+
+export const deleteTrack = ({ commit }, trackId) => {
+  console.log('action', trackId)
+  commit(DELETE_TRACK, { trackId });
 };

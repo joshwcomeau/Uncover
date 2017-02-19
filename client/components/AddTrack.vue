@@ -42,6 +42,7 @@
 
       <div class="row">
         <div class="form-section">
+          <h4>Media Type</h4>
           <edit-media-types v-model="mediaTypes" />
         </div>
       </div>
@@ -161,7 +162,9 @@ export default {
     saveTrack() {
       // Validate that we're adding isn't already present.
       if (this.trackIds.includes(this.id)) {
+        // eslint-disable-next-line no-alert
         alert("Sorry, it looks like you've already added this item!\n\nYou can modify an existing item by clicking the little gear on the track.");
+
         return;
       }
 

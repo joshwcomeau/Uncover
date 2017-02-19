@@ -1,7 +1,7 @@
 <template>
   <button
     class="button"
-    :class="[size, color, { 'no-border': noBorder, disabled }]"
+    :class="[size, color, { 'has-icon': !!icon, disabled }]"
     :disabled="disabled"
     @click="handleClick"
   >
@@ -10,7 +10,11 @@
       v-if="icon"
       :size="iconSize"
       :name="icon"
-      :style="{ color: iconColor }"
+      :style="{
+        color: iconColor,
+        width: iconSize + 'px',
+        height: iconSize + 'px',
+      }"
     />
     <slot></slot>
   </button>
@@ -47,10 +51,6 @@ export default {
       type: String,
       default: 'white',
     },
-    noBorder: {
-      type: Boolean,
-      default: false,
-    },
   },
 };
 </script>
@@ -60,6 +60,7 @@ export default {
 @import '../styles/variables';
 
 .button {
+  position: relative;
   border: none;
   border-radius: 4px;
   border-left: 1px solid rgba(0,0,0,0.2);
@@ -80,11 +81,23 @@ export default {
   &.teal {
     background: $teal;
     color: $white;
+    text-shadow: 1px 1px 1px $teal;
+    transition: background 300ms;
+
+    &:hover {
+      background: lighten($teal, 5%);
+    }
   }
 
   &.blue {
     background: $blue;
     color: $white;
+    text-shadow: 1px 1px 1px $blue;
+    transition: background 300ms;
+
+    &:hover {
+      background: lighten($blue, 5%);
+    }
   }
 
   &.purple {
@@ -98,8 +111,19 @@ export default {
     }
   }
 
+  &.red {
+    background: $red;
+    color: $white;
+    text-shadow: 1px 1px 1px $red;
+    transition: background 300ms;
+
+    &:hover {
+      background: lighten($red, 5%);
+    }
+  }
+
   &.medium {
-    padding: 3px 16px;
+    padding: 5px 16px;
     font-size: 12px;
   }
 
@@ -110,8 +134,17 @@ export default {
     letter-spacing: -0.5px;
   }
 
-  &.no-border {
-    border: none !important;
+  &.has-icon {
+    padding-left: 32px;
+  }
+
+  .icon {
+    position: absolute;
+    top: 0;
+    left: 8px;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 }
 </style>

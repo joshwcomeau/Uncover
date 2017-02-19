@@ -12,6 +12,8 @@ const icons = [
   'material-settings',
   'material-sync',
   'material-check',
+  'material-keyboard_return',
+  'material-delete',
 ];
 
 module.exports = {

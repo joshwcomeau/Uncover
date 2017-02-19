@@ -9,12 +9,13 @@
       </div>
 
       <div class="track-actions">
-        <button-component
-          :handleClick="toggleEditing"
-          icon="material-settings"
-          iconColor="#9E9E9E"
-          no-border
-        />
+        <button @click="toggleEditing">
+          <icon
+            class="settings-toggle-icon"
+            name="material-settings"
+            :size="16"
+          />
+        </button>
       </div>
     </header>
 
@@ -40,7 +41,27 @@
       </div>
 
       <div class="settings" v-if="isEditing">
+        <h4>Media Type</h4>
         <edit-media-types v-model="mediaTypes" />
+
+        <footer>
+          <button-component
+            icon="material-keyboard_return"
+            iconColor="white"
+            color="teal"
+            :handleClick="toggleEditing"
+          >
+            Return
+          </button-component>
+          <button-component
+            icon="material-delete"
+            iconColor="white"
+            color="red"
+            :handleClick="() => deleteTrack(this.id)"
+          >
+            Delete
+          </button-component>
+        </footer>
       </div>
     </section>
   </card-component>
@@ -51,6 +72,7 @@
 import { mapActions } from 'vuex';
 import dateFnsFormat from 'date-fns/format';
 import get from 'lodash/get';
+import icon from 'vue-icons/icon';
 
 import Button from './Button';
 import Card from './Card';
@@ -66,11 +88,16 @@ export default {
     ButtonComponent: Button,
     CardComponent: Card,
     EditMediaTypes,
+    icon,
     MaxWidthWrapper,
     SpinnerComponent: Spinner,
     TrackTag,
     TrackItem,
   },
+
+  props: [
+    'id', 'name', 'image', 'category', 'meta', 'isFetching', 'items',
+  ],
 
   data() {
     return {
@@ -79,7 +106,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['updateTrackMetadata']),
+    ...mapActions(['updateTrackMetadata', 'deleteTrack']),
     toggleEditing() {
       this.isEditing = !this.isEditing;
     },
@@ -101,10 +128,6 @@ export default {
       },
     },
   },
-
-  props: [
-    'id', 'name', 'image', 'category', 'meta', 'isFetching', 'items',
-  ],
 
   filters: {
     formatDate: val => dateFnsFormat(val, 'MMM Do YYYY'),
@@ -178,7 +201,21 @@ export default {
     }
 
     .track-actions {
-      margin-top: 18px;
+      button {
+        padding: 0.5rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+
+        &:hover .settings-toggle-icon {
+          opacity: 1;
+        }
+      }
+      .settings-toggle-icon {
+        color: $darkgray;
+        opacity: 0.5;
+        transition: opacity 250ms;
+      }
     }
   }
 
@@ -246,8 +283,13 @@ export default {
       padding-bottom: 0.25rem;
     }
 
-    label {
-      margin-right: 3rem;
+    footer {
+      position: absolute;
+      left: 1rem;
+      right: 1rem;
+      bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
     }
   }
 
@@ -276,6 +318,7 @@ export default {
       top: 0;
       right: 0;
     }
+
     .main-content {
       border-radius: 0 0 2px 2px;
     }

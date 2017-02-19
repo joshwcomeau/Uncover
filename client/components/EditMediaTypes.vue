@@ -1,6 +1,5 @@
 <template>
   <div class="edit-media-types">
-    <h4>Media Types</h4>
     <label>
       <input
         type="radio"
@@ -67,6 +66,10 @@ export default {
 @import '../styles/variables';
 
 .edit-media-types {
-
+  label {
+    margin-right: 2rem;
+    font-size: 14px;
+    font-weight: 400;
+  }
 }
 </style>
