@@ -35,7 +35,7 @@ export default {
     const newTracksById = mapValues(state.tracks.byId, track => ({
       ...track,
       ...(populatedTracks.find(t => t.id === track.id) || {}),
-      isFetching: true,
+      isFetching: false,
     }));
 
     state.tracks.byId = {

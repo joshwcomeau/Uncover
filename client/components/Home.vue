@@ -59,6 +59,17 @@ export default {
 <style scoped lang="scss">
 @import '../styles/variables';
 
+@keyframes riseAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .heading {
   padding: 5rem 0 0.5rem;
   font-size: 40px;
@@ -69,4 +80,11 @@ export default {
     letter-spacing: -6px;
   }
 }
+
+@for $trackNum from 1 through 10 {
+  .track:nth-child(#{$trackNum}) {
+    animation: riseAndFade 750ms ease-out #{$trackNum * 250 - 150}ms both;
+  }
+}
+
 </style>
