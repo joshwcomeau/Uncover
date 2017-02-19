@@ -56,6 +56,7 @@ a {
   z-index: 2;
   background: $darkgray;
   border-top: 1px solid lighten($darkgray, 5%);
+  box-shadow: 0px -2px 20px rgba(17, 17, 17, 1);
 }
 
 .italic {

@@ -20,6 +20,7 @@ export default {
   display: inline-block;
 
   img {
+    display: block;
     height: $track-inner-height;
     margin-right: $track-padding;
     // box-shadow: 1px 1px 1px rgba(0,0,0,0.5);

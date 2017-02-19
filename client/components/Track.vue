@@ -1,10 +1,12 @@
 <template>
   <card-component class="track" :class="category">
     <header>
-      <img class="track-image" :src="image" />
+      <div class="header-details">
+        <img class="track-image" :src="image" />
 
-      <h3 class="track-name">{{ name }}</h3>
-      <h6 class="track-last-updated-at" v-if="mostRecentUpdate">Latest release: {{ mostRecentUpdate | formatDate }}</h6>
+        <h3 class="track-name">{{ name }}</h3>
+        <h6 class="track-last-updated-at" v-if="latestReleaseDate">Latest release: {{ latestReleaseDate | formatDate }}</h6>
+      </div>
 
       <div class="track-actions">
         <button-component
@@ -15,18 +17,14 @@
       </div>
     </header>
 
-    <ul class="track-items">
-      <track-item v-for="item in items" :src="item.image" :name="item.name"></track-item>
-    </ul>
-
-    <div class="resize-handle-container">
-      <div class="resize-handle">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
+    <div class="track-item-wrapper">
+      <ul class="track-items">
+        <track-item
+          v-for="item in items"
+          :src="item.image"
+          :name="item.name"
+        />
+      </ul>
     </div>
   </card-component>
 </template>
@@ -53,7 +51,7 @@ export default {
   },
 
   computed: {
-    mostRecentUpdate() {
+    latestReleaseDate() {
       return get(this.items, '0.releaseDate');
     },
   },
@@ -76,25 +74,21 @@ export default {
   height: $track-height;
   display: flex;
 
-  @media screen and (min-width: 600px) {
-    &::before {
-      content: '';
-      position: absolute;
-      top: $track-padding;
-      left: $track-padding;
-      bottom: $track-padding;
-      width: 5px;
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    top: $track-padding;
+    left: $track-padding;
+    bottom: $track-padding;
+    width: 5px;
+  }
 
-    &.author::before {
-      background: $purple;
-    }
+  &.author::before {
+    background: $purple;
+  }
 
-    &.tv-show::before {
-      content: '';
-
-      background: $blue;
-    }
+  &.tv-show::before {
+    background: $blue;
   }
 
   header {
@@ -104,7 +98,10 @@ export default {
     color: $black;
     margin-left: $track-padding * 2;
     text-align: center;
-    transform: translateY(-8px);
+
+    .header-details {
+      transform: translateY(-8px);
+    }
 
     .track-image {
       display: block;
@@ -137,54 +134,62 @@ export default {
     }
   }
 
-  .track-items {
+  .track-item-wrapper {
     position: relative;
-    flex: 1;
+    height: $track-height;
     background: $offwhite;
-    border-left: 1px solid rgba(0,0,0,0.1);
-    border-right: 1px solid rgba(0,0,0,0.1);
     padding: $track-padding;
+    flex: 1;
+    border-left: 1px solid rgba(0,0,0,0.1);
     overflow: hidden;
     white-space: nowrap;
 
     &:after {
       content: '';
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
+      top: $track-padding;
+      right: $track-padding;
+      bottom: $track-padding;
       width: 20px;
-      background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,0.25));
+      background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,0.5));
       pointer-events: none;
     }
+
+  }
+  .track-items {
+    position: relative;
+    margin-bottom: -30px;
+    padding-bottom: 30px;
+    overflow-x: scroll;
+    overflow-y: hidden;
   }
 
-  $resize-handle-size: 24px;
+  @media screen and (max-width: $break-mobile) {
+    flex-direction: column;
+    height: auto;
 
-  &:hover .resize-handle-container {
-    .resize-handle {
-      opacity: 1;
+    &:before {
+      display: none;
     }
-  }
 
-  .resize-handle-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: $resize-handle-size;
+    header {
+      width: auto;
+      height: auto;
+      margin-left: 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
 
-    .resize-handle {
-      width: $resize-handle-size;
-      opacity: 0;
-      transition: opacity 500ms;
-      cursor: grab;
-
-      .bar {
-        width: $resize-handle-size - 6px;
-        height: 2px;
-        margin: 2px 3px;
-        background: $lightgray;
+      .header-details {
+        transform: translateY(-16px);
       }
+    }
+
+    .track-actions {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .track-item-wrapper {
+      border-radius: 0 0 2px 2px;
     }
   }
 }
