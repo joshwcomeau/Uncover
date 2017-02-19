@@ -16,7 +16,12 @@ const pluckBooksFromAmazonResponse = (searchTerm, result) => {
       const author = get(book, 'ItemAttributes[0].Author[0]');
       const title = get(book, 'ItemAttributes[0].Title[0]');
       const image = get(book, 'LargeImage[0].URL[0]');
-      const releaseDate = get(book, 'ItemAttributes[0].ReleaseDate[0]');
+      const url = get(book, 'DetailPageURL[0]');
+
+      const releaseDate = (
+        get(book, 'ItemAttributes[0].ReleaseDate[0]') ||
+        get(book, 'ItemAttributes[0].PublicationDate[0]')
+      );
 
       const isMissingData = !author || !title || !image
 
@@ -34,7 +39,7 @@ const pluckBooksFromAmazonResponse = (searchTerm, result) => {
         return null;
       }
 
-      return { id, author, title, image, releaseDate };
+      return { id, author, title, image, url, releaseDate };
     })
     .filter(book => (
       !!book && !!book.author
