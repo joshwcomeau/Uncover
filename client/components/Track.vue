@@ -18,13 +18,22 @@
     </header>
 
     <div class="track-item-wrapper">
-      <ul class="track-items">
+      <ul class="track-items" v-if="!isFetching">
         <track-item
           v-for="item in items"
           :src="item.image"
           :name="item.name"
         />
       </ul>
+
+      <div v-if="isFetching">
+
+        <book-spinner class="spinner" />
+
+        <div class="placeholders">
+          <div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div>
+        </div>
+      </div>
     </div>
   </card-component>
 </template>
@@ -34,6 +43,7 @@
 import dateFnsFormat from 'date-fns/format';
 import get from 'lodash/get';
 
+import BookSpinner from './BookSpinner';
 import Button from './Button';
 import Card from './Card';
 import MaxWidthWrapper from './MaxWidthWrapper';
@@ -43,6 +53,7 @@ import TrackItem from './TrackItem';
 export default {
   name: 'track',
   components: {
+    BookSpinner,
     ButtonComponent: Button,
     CardComponent: Card,
     MaxWidthWrapper,
@@ -150,19 +161,42 @@ export default {
       top: $track-padding;
       right: $track-padding;
       bottom: $track-padding;
-      width: 20px;
-      background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,0.5));
+      width: 30px;
+      background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,0.3));
       pointer-events: none;
     }
 
+    .track-items {
+      position: relative;
+      margin-bottom: -30px;
+      padding-bottom: 30px;
+      overflow-x: scroll;
+      overflow-y: hidden;
+    }
+
+    .spinner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    }
+
+    .placeholders {
+      overflow: hidden;
+
+      .placeholder {
+        display: inline-block;
+        width: $track-height - $track-padding * 2;
+        height: $track-height - $track-padding * 2;
+        background: rgba(0,0,0,0.1);
+        border-radius: 2px;
+        margin-right: $track-padding;
+      }
+    }
   }
-  .track-items {
-    position: relative;
-    margin-bottom: -30px;
-    padding-bottom: 30px;
-    overflow-x: scroll;
-    overflow-y: hidden;
-  }
+
 
   @media screen and (max-width: $break-mobile) {
     flex-direction: column;
