@@ -10,7 +10,7 @@ const { searchForAuthor, getAuthorInfo } = require('../APIs/goodreads.api');
 
 
 const pluckBooksFromAmazonResponse = (searchTerm, result) => {
-  const books = result
+  return result
     .map(book => {
       const id = get(book, 'ASIN[0]');
       const author = get(book, 'ItemAttributes[0].Author[0]');
@@ -19,7 +19,6 @@ const pluckBooksFromAmazonResponse = (searchTerm, result) => {
       const url = get(book, 'DetailPageURL[0]');
 
       const releaseDate = (
-        get(book, 'ItemAttributes[0].ReleaseDate[0]') ||
         get(book, 'ItemAttributes[0].PublicationDate[0]')
       );
 
@@ -44,27 +43,6 @@ const pluckBooksFromAmazonResponse = (searchTerm, result) => {
     .filter(book => (
       !!book && !!book.author
     ));
-
-  // If the supplied author name is a perfect match for any of the authors,
-  // take that one. Sometimes the most popular author is wrong!
-  const perfectMatchBook = books.find(book => (
-    book.author.toLowerCase() === searchTerm.toLowerCase()
-  ));
-
-  let author;
-
-  if (perfectMatchBook) {
-    author = perfectMatchBook.author;
-  } else {
-    // If no perfect match was found, the most likely author is the one
-    // with the most results. Let's trust Amazon's relevancy for this.
-    const authorsByCount = countBy(books, 'author');
-    const maxRepeated = max(values(authorsByCount));
-
-    author = findKey(authorsByCount, count => count === maxRepeated);
-  }
-
-  return books.filter(book => book.author === author);
 };
 
 const getTrackItems = (track) => {
@@ -80,8 +58,14 @@ const getTrackItems = (track) => {
     language: 'english',
   };
 
+  // Annoyingly, Amazon is very quirky with how it sorts data from multiple
+  // media types. For now, the solution is to restrict, on the client, users
+  // from selecting multiple types. In the future, though, we may solve it
+  // by sending multiple requests.
+  // A side effect is that the client sends `mediaTypes` as a single value,
+  // so we need to wrap it in an array
   if (mediaTypes) {
-    power.binding = getBindingFromMediaTypes(mediaTypes);
+    power.binding = getBindingFromMediaTypes([mediaTypes]);
   }
 
   const query = { power: createPowerString(power) };

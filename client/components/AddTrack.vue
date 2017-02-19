@@ -42,21 +42,7 @@
 
       <div class="row">
         <div class="form-section">
-          <h4>Media Types</h4>
-          <label>
-            <input type="checkbox" v-model="mediaTypes" value="print" />
-            Print
-          </label>
-
-          <label>
-            <input type="checkbox" v-model="mediaTypes" value="ebook" />
-            E-Book
-          </label>
-
-          <label>
-            <input type="checkbox" v-model="mediaTypes" value="audiobook" />
-            Audiobook
-          </label>
+          <edit-media-types v-model="mediaTypes" />
         </div>
       </div>
 
@@ -84,6 +70,7 @@ import { getTrackInfo } from '../services/api';
 
 import Button from './Button';
 import Card from './Card';
+import EditMediaTypes from './EditMediaTypes';
 import InputWithUnderline from './InputWithUnderline';
 import MaxWidthWrapper from './MaxWidthWrapper';
 
@@ -93,6 +80,7 @@ export default {
   components: {
     ButtonComponent: Button,
     CardComponent: Card,
+    EditMediaTypes,
     InputWithUnderline,
     MaxWidthWrapper,
   },
@@ -106,7 +94,7 @@ export default {
       name: null,
       image: null,
       items: null,
-      mediaTypes: ['print'],
+      mediaTypes: 'print',
     };
   },
 

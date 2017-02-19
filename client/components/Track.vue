@@ -40,33 +40,7 @@
       </div>
 
       <div class="settings" v-if="isEditing">
-        <h4>Media Types</h4>
-        <label>
-          <input
-            type="checkbox"
-            value="print"
-            v-model="mediaTypes"
-          />
-          Print
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            value="ebook"
-            v-model="mediaTypes"
-          />
-          E-Book
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            value="audiobook"
-            v-model="mediaTypes"
-          />
-          Audiobook
-        </label>
+        <edit-media-types v-model="mediaTypes" />
       </div>
     </section>
   </card-component>
@@ -80,6 +54,7 @@ import get from 'lodash/get';
 
 import Button from './Button';
 import Card from './Card';
+import EditMediaTypes from './EditMediaTypes';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import Spinner from './Spinner';
 import TrackTag from './TrackTag';
@@ -90,6 +65,7 @@ export default {
   components: {
     ButtonComponent: Button,
     CardComponent: Card,
+    EditMediaTypes,
     MaxWidthWrapper,
     SpinnerComponent: Spinner,
     TrackTag,

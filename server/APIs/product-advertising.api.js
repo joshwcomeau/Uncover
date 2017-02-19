@@ -32,7 +32,7 @@ module.exports.createPowerString = power => (
       let powerVal = power[powerKey];
 
       if (Array.isArray(powerVal)) {
-        powerVal = powerVal.join(' or ');
+        powerVal = '(' + powerVal.join(' or ') + ')';
       }
 
       return `${powerKey}:${powerVal}`;
