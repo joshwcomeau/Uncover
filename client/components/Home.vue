@@ -10,7 +10,7 @@
     </div>
 
     <ul class="track-list">
-      <li class="track" v-for="track in trackList">
+      <li class="track" v-for="track in sortedTrackList">
         <track-component
           :id="track.id"
           :name="track.name"
@@ -42,7 +42,7 @@ export default {
   components: { AppHeader, MaxWidthWrapper, TrackComponent: Track, NewTrackCta },
 
   computed: {
-    ...mapGetters(['noTracksYet', 'trackList']),
+    ...mapGetters(['noTracksYet', 'sortedTrackList']),
   },
 
   methods: {
@@ -51,7 +51,7 @@ export default {
 
   created() {
     // Fetch the items for our tracks
-    this.fetchTrackData(this.trackList);
+    this.fetchTrackData(this.sortedTrackList);
   },
 };
 </script>
