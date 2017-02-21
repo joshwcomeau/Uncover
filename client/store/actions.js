@@ -35,6 +35,5 @@ export const updateTrackMetadata = (store, { trackId, meta }) => {
 };
 
 export const deleteTrack = ({ commit }, trackId) => {
-  console.log('action', trackId)
   commit(DELETE_TRACK, { trackId });
 };
