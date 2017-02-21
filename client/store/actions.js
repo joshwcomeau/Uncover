@@ -8,14 +8,15 @@ import {
 import { getTrackItems } from '../services/api';
 
 
-export const fetchTrackData = async ({ commit }, tracks) => {
-  const trackIds = tracks.map(({ id }) => id);
+export const fetchTrackData = async (store, trackId) => {
+  const { commit } = store;
 
-  commit(TRACK_INFO_REQUEST, { trackIds });
+  commit(TRACK_INFO_REQUEST, { trackId });
 
-  const populatedTracks = await getTrackItems(tracks);
+  const track = store.state.tracks.byId[trackId];
+  const populatedTrack = await getTrackItems(track);
 
-  commit(TRACK_INFO_RECEIVE, { populatedTracks });
+  commit(TRACK_INFO_RECEIVE, { populatedTrack });
 };
 
 export const saveNewTrack = ({ commit }, track) => {

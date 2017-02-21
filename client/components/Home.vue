@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import AppHeader from 'components/AppHeader';
 import MaxWidthWrapper from './MaxWidthWrapper';
@@ -43,15 +43,6 @@ export default {
 
   computed: {
     ...mapGetters(['noTracksYet', 'sortedTrackList']),
-  },
-
-  methods: {
-    ...mapActions(['fetchTrackData']),
-  },
-
-  created() {
-    // Fetch the items for our tracks
-    this.fetchTrackData(this.sortedTrackList);
   },
 };
 </script>

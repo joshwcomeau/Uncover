@@ -106,16 +106,22 @@ export default {
   },
 
   methods: {
-    ...mapActions(['updateTrackMetadata', 'deleteTrack']),
+    ...mapActions(['fetchTrackData', 'updateTrackMetadata', 'deleteTrack']),
     toggleEditing() {
       this.isEditing = !this.isEditing;
     },
+  },
+
+  created() {
+    // Fetch the items for our tracks
+    this.fetchTrackData(this.id);
   },
 
   computed: {
     latestReleaseDate() {
       return get(this.items, '0.releaseDate');
     },
+
     mediaTypes: {
       get() { return this.meta.mediaTypes; },
       set(val) {
@@ -138,7 +144,6 @@ export default {
 
 <style scoped lang="scss">
 @import '../styles/variables';
-
 
 .track {
   position: relative;

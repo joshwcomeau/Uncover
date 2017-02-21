@@ -10,7 +10,7 @@ export const getTrackInfo = ({ searchTerm, category }) => {
   return fetch(`${path}?${query}`).then(toJson);
 };
 
-export const getTrackItems = (tracks) => {
+export const getTrackItems = (track) => {
   const url = `${apiHost}/get-track-items`;
 
   // Doing a POST because we're sending a lot of info for a GET.
@@ -22,7 +22,7 @@ export const getTrackItems = (tracks) => {
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    body: JSON.stringify({ tracks }),
+    body: JSON.stringify({ track }),
   };
 
   return fetch(url, options).then(toJson);

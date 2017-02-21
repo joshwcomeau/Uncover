@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-import mapValues from 'lodash/mapValues';
 import omit from 'lodash/omit';
 
 export const DELETE_TRACK = 'DELETE_TRACK';
@@ -11,7 +10,6 @@ export const UPDATE_TRACK_METADATA = 'UPDATE_TRACK_METADATA';
 
 export default {
   [DELETE_TRACK]: (state, { trackId }) => {
-    console.log('mutation', trackId)
     state.tracks.byId = omit(state.tracks.byId, trackId);
     state.tracks.allIds = state.tracks.allIds.filter(id => id !== trackId);
 
@@ -29,30 +27,21 @@ export default {
     return state;
   },
 
-  [TRACK_INFO_REQUEST]: (state, { trackIds }) => {
-    const newTracksById = mapValues(state.tracks.byId, track => ({
-      ...track,
-      isFetching: trackIds.includes(track.id),
-    }));
+  [TRACK_INFO_REQUEST]: (state, { trackId }) => {
+    const track = state.tracks.byId[trackId];
 
-    state.tracks.byId = {
-      ...state.tracks.byId,
-      ...newTracksById,
+    state.tracks.byId[trackId] = {
+      ...track,
+      isFetching: true,
     };
 
     return state;
   },
 
-  [TRACK_INFO_RECEIVE]: (state, { populatedTracks }) => {
-    const newTracksById = mapValues(state.tracks.byId, track => ({
-      ...track,
-      ...(populatedTracks.find(t => t.id === track.id) || {}),
+  [TRACK_INFO_RECEIVE]: (state, { populatedTrack }) => {
+    state.tracks.byId[populatedTrack.id] = {
+      ...populatedTrack,
       isFetching: false,
-    }));
-
-    state.tracks.byId = {
-      ...state.tracks.byId,
-      ...newTracksById,
     };
 
     return state;

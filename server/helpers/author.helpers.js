@@ -1,4 +1,4 @@
-const { get, countBy, max, values, findKey } = require('lodash');
+const { get } = require('lodash');
 const isFuture = require('date-fns/is_future');
 
 const {
@@ -9,9 +9,9 @@ const {
 const { searchForAuthor, getAuthorInfo } = require('../APIs/goodreads.api');
 
 
-const pluckBooksFromAmazonResponse = (searchTerm, result) => {
-  return result
-    .map(book => {
+const pluckBooksFromAmazonResponse = (searchTerm, result) => (
+  result
+    .map((book) => {
       const id = get(book, 'ASIN[0]');
       const author = get(book, 'ItemAttributes[0].Author[0]');
       const title = get(book, 'ItemAttributes[0].Title[0]');
@@ -22,7 +22,7 @@ const pluckBooksFromAmazonResponse = (searchTerm, result) => {
         get(book, 'ItemAttributes[0].PublicationDate[0]')
       );
 
-      const isMissingData = !author || !title || !image
+      const isMissingData = !author || !title || !image;
 
       // Ignore books in the future
       const isPreorder = isFuture(releaseDate);
@@ -42,12 +42,11 @@ const pluckBooksFromAmazonResponse = (searchTerm, result) => {
     })
     .filter(book => (
       !!book && !!book.author
-    ));
-};
+    ))
+);
 
 const getTrackItems = (track) => {
   const {
-    id,
     name: author,
     meta: { mediaTypes },
   } = track;
@@ -70,17 +69,17 @@ const getTrackItems = (track) => {
 
   const query = { power: createPowerString(power) };
 
-  return searchAmazon(query).then(response => {
+  return searchAmazon(query).then((response) => {
     const relevantBooks = pluckBooksFromAmazonResponse(author, response);
 
     return Object.assign({}, track, {
       items: relevantBooks,
     });
-  }).catch(err => {
+  }).catch((err) => {
     // TODO: Handle
     throw new Error(err);
   });
-}
+};
 
 module.exports.getTrackItems = getTrackItems;
 
@@ -100,4 +99,4 @@ module.exports.getAuthorProfileAndTrackItems = async (searchTerm) => {
     image: authorInfo.image_url,
     items: trackItems.items,
   };
-}
+};
