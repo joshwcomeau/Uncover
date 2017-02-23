@@ -1,10 +1,6 @@
+<!-- HTML -->
 <template>
   <max-width-wrapper class="home">
-    <h4 class="heading">
-      <span class="tighter">Y</span>our <span class="tighter">T</span>racks
-    </h4>
-
-    <!-- TODO: A proper onboarding component here, to get the user started -->
     <div v-if="noTracksYet">
       No tracks yet! Add one
     </div>
@@ -21,16 +17,19 @@
           :items="track.items"
         />
       </li>
-      <li>
+      <li class="track">
         <new-track-cta />
       </li>
     </ul>
   </max-width-wrapper>
 </template>
 
+
+<!-- JAVASCRIPT -->
 <script>
 import { mapGetters } from 'vuex';
 
+import router from 'router';
 import AppHeader from 'components/AppHeader';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import Track from './Track';
@@ -39,7 +38,19 @@ import NewTrackCta from './NewTrackCta';
 
 export default {
   name: 'home',
-  components: { AppHeader, MaxWidthWrapper, TrackComponent: Track, NewTrackCta },
+  components: {
+    AppHeader,
+    MaxWidthWrapper,
+    TrackComponent:
+    Track,
+    NewTrackCta,
+  },
+
+  created() {
+    if (this.noTracksYet) {
+      router.push('/intro');
+    }
+  },
 
   computed: {
     ...mapGetters(['noTracksYet', 'sortedTrackList']),
@@ -48,6 +59,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 
@@ -62,20 +74,13 @@ export default {
   }
 }
 
-.heading {
-  padding: 5rem 0 0.5rem;
-  font-size: 40px;
-  color: $white;
-  letter-spacing: -1px;
-
-  .tighter {
-    letter-spacing: -6px;
-  }
+.home {
+  padding-top: 2rem;
 }
 
-@for $trackNum from 1 through 10 {
+@for $trackNum from 1 through 50 {
   .track:nth-child(#{$trackNum}) {
-    animation: riseAndFade 750ms ease-out #{$trackNum * 250 - 150}ms both;
+    animation: riseAndFade 750ms ease-out #{$trackNum * 75}ms both;
   }
 }
 

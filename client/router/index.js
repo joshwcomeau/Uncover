@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from 'components/Home';
-import AddTrack from 'components/AddTrack';
-import ImportExport from 'components/ImportExport';
+import About from '../components/About';
+import AddTrack from '../components/AddTrack';
+import Home from '../components/Home';
+import ImportExport from '../components/ImportExport';
+import Intro from '../components/Intro';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -20,6 +22,16 @@ export default new Router({
       path: '/import-export',
       name: 'ImportExport',
       component: ImportExport,
+    }, {
+      path: '/about',
+      name: 'About',
+      component: About,
+    }, {
+      path: '/intro',
+      name: 'Intro',
+      component: Intro,
     },
   ],
 });
+
+export default router;
