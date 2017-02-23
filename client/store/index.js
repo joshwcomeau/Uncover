@@ -12,7 +12,6 @@ Vue.use(Vuex);
 const defaultState = {
   tracks: {
     byId: {},
-    allIds: [],
   },
 };
 

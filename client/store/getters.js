@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import get from 'lodash/get';
 
 
@@ -7,14 +8,14 @@ const getEarliestReleaseDateForTrack = track => (
   get(track, 'items[0].releaseDate') || 0
 );
 
-export const trackIds = ({ tracks }) => tracks.allIds;
+export const trackIds = ({ tracks }) => Object.keys(tracks.byId);
 
-export const trackList = ({ tracks }) => (
-  tracks.allIds.map(id => tracks.byId[id])
+export const trackList = ({ tracks }, { trackIds }) => (
+  trackIds.map(id => tracks.byId[id])
 );
 
-export const sortedTrackList = ({ tracks }) => (
-  trackList({ tracks }).sort((a, b) => {
+export const sortedTrackList = (state, { trackList }) => (
+  trackList.sort((a, b) => {
     const earliestReleaseDateA = getEarliestReleaseDateForTrack(a);
     const earliestReleaseDateB = getEarliestReleaseDateForTrack(b);
 
@@ -22,6 +23,6 @@ export const sortedTrackList = ({ tracks }) => (
   })
 );
 
-export const noTracksYet = ({ tracks }) => (
-  !tracks.allIds || tracks.allIds.length === 0
+export const noTracksYet = (state, { trackIds }) => (
+  trackIds.length === 0
 );

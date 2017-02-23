@@ -12,7 +12,6 @@ export const UPDATE_TRACK_METADATA = 'UPDATE_TRACK_METADATA';
 export default {
   [DELETE_TRACK]: (state, { trackId }) => {
     state.tracks.byId = omit(state.tracks.byId, trackId);
-    state.tracks.allIds = state.tracks.allIds.filter(id => id !== trackId);
 
     return state;
   },
@@ -23,8 +22,6 @@ export default {
       ...tracks,
     };
 
-    state.tracks.allIds = Object.keys(state.tracks.byId);
-
     return state;
   },
 
@@ -33,8 +30,6 @@ export default {
       ...state.tracks.byId,
       [track.id]: track,
     };
-
-    state.tracks.allIds.push(track.id);
 
     return state;
   },
