@@ -22,6 +22,7 @@
           :isFetching="track.isFetching"
           :meta="track.meta"
           :items="track.items"
+          :fetchTrackData="fetchTrackData"
         />
       </li>
     </ul>
@@ -31,6 +32,10 @@
 
 <!-- JAVASCRIPT -->
 <script>
+import { mapGetters } from 'vuex';
+import values from 'lodash/values';
+
+import { getTrackItems } from 'services/api';
 import MaxWidthWrapper from 'components/MaxWidthWrapper';
 import Track from 'components/Track';
 
@@ -39,24 +44,45 @@ export default {
   name: 'intro',
   components: { TrackComponent: Track, MaxWidthWrapper },
 
+  created() {
+  },
+
   data() {
     return {
-      sampleTrackList: [
-        {
+      sampleTracks: {
+        '7044164': {
           id: '7044164',
           name: 'Scott Meyer',
           image: 'https://images.gr-assets.com/authors/1366826945p5/7044164.jpg',
           category: 'author',
           meta: { mediaTypes: 'audiobook' },
-        }, {
+        },
+        '7077654': {
           id: '7077654',
           name: 'Drew Hayes',
           image: 'https://images.gr-assets.com/authors/1367797581p5/7077654.jpg',
           category: 'author',
           meta: { mediaTypes: 'audiobook' },
         },
-      ],
+      },
     };
+  },
+
+  computed: {
+    ...mapGetters(['numOfTracks']),
+    sampleTrackList() {
+      return values(this.sampleTracks);
+    },
+  },
+
+  methods: {
+    fetchTrackData(id) {
+      const track = this.sampleTracks[id];
+
+      getTrackItems(track).then((data) => {
+        this.sampleTracks[id] = data;
+      });
+    },
   },
 };
 </script>

@@ -2,6 +2,7 @@
 import omit from 'lodash/omit';
 
 export const DELETE_TRACK = 'DELETE_TRACK';
+export const DELETE_ALL_TRACKS = 'DELETE_ALL_TRACKS';
 export const IMPORT_TRACKS = 'IMPORT_TRACKS';
 export const SAVE_NEW_TRACK = 'SAVE_NEW_TRACK';
 export const TRACK_INFO_REQUEST = 'TRACK_INFO_REQUEST';
@@ -12,6 +13,12 @@ export const UPDATE_TRACK_METADATA = 'UPDATE_TRACK_METADATA';
 export default {
   [DELETE_TRACK]: (state, { trackId }) => {
     state.tracks.byId = omit(state.tracks.byId, trackId);
+
+    return state;
+  },
+
+  [DELETE_ALL_TRACKS]: (state) => {
+    state.tracks.byId = {};
 
     return state;
   },

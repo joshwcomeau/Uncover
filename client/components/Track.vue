@@ -71,7 +71,6 @@
 
 <!-- JAVASCRIPT -->
 <script>
-import { mapActions } from 'vuex';
 import dateFnsFormat from 'date-fns/format';
 import get from 'lodash/get';
 import icon from 'vue-icons/icon';
@@ -98,7 +97,16 @@ export default {
   },
 
   props: [
-    'id', 'name', 'image', 'category', 'meta', 'isFetching', 'items',
+    'id',
+    'name',
+    'image',
+    'category',
+    'meta',
+    'isFetching',
+    'items',
+    'fetchTrackData',
+    'updateTrackMetadata',
+    'deleteTrack',
   ],
 
   data() {
@@ -108,13 +116,13 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchTrackData', 'updateTrackMetadata', 'deleteTrack']),
     toggleEditing() {
       this.isEditing = !this.isEditing;
     },
   },
 
   created() {
+    console.log(this.fetchTrackData)
     // Fetch the items for our tracks
     this.fetchTrackData(this.id);
   },

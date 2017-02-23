@@ -15,6 +15,9 @@
           :isFetching="track.isFetching"
           :meta="track.meta"
           :items="track.items"
+          :fetchTrackData="fetchTrackData"
+          :updateTrackMetadata="updateTrackMetadata"
+          :deleteTrack="deleteTrack"
         />
       </li>
       <li class="track">
@@ -27,7 +30,7 @@
 
 <!-- JAVASCRIPT -->
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import router from 'router';
 import AppHeader from 'components/AppHeader';
@@ -54,6 +57,10 @@ export default {
 
   computed: {
     ...mapGetters(['noTracksYet', 'sortedTrackList']),
+  },
+
+  methods: {
+    ...mapActions(['fetchTrackData', 'updateTrackMetadata', 'deleteTrack']),
   },
 };
 </script>

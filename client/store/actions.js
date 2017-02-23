@@ -1,5 +1,6 @@
 import {
   DELETE_TRACK,
+  DELETE_ALL_TRACKS,
   IMPORT_TRACKS,
   SAVE_NEW_TRACK,
   TRACK_INFO_REQUEST,
@@ -38,6 +39,10 @@ export const updateTrackMetadata = (store, { trackId, meta }) => {
 
 export const deleteTrack = ({ commit }, trackId) => {
   commit(DELETE_TRACK, { trackId });
+};
+
+export const deleteAllTracks = ({ commit }) => {
+  commit(DELETE_ALL_TRACKS);
 };
 
 export const importTracks = ({ commit }, tracks) => {
