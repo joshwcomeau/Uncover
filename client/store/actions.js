@@ -1,9 +1,10 @@
 import {
+  DELETE_TRACK,
+  IMPORT_TRACKS,
   SAVE_NEW_TRACK,
   TRACK_INFO_REQUEST,
   TRACK_INFO_RECEIVE,
   UPDATE_TRACK_METADATA,
-  DELETE_TRACK,
 } from './mutations';
 import { getTrackItems } from '../services/api';
 
@@ -37,4 +38,8 @@ export const updateTrackMetadata = (store, { trackId, meta }) => {
 
 export const deleteTrack = ({ commit }, trackId) => {
   commit(DELETE_TRACK, { trackId });
+};
+
+export const importTracks = ({ commit }, tracks) => {
+  commit(IMPORT_TRACKS, { tracks });
 };

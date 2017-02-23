@@ -3,8 +3,8 @@
     <router-link to="/about" class="nav-item">
       About
     </router-link>
-    <router-link to="/settings" class="nav-item">
-      Settings
+    <router-link to="/import-export" class="nav-item">
+      Import / Export
     </router-link>
     <router-link to="/add-track" class="nav-item bold">
       Add Track

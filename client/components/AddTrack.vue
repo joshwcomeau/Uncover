@@ -1,5 +1,5 @@
 <template>
-  <max-width-wrapper class="add-track" maxWidthOverride="500">
+  <max-width-wrapper narrow class="add-track">
     <h2>Add Track</h2>
 
     <card-component class="main-content">
@@ -209,8 +209,8 @@ $content-padding: 2rem;
 
 
 .add-track {
-  padding: 6rem 0;
-  max-width: 650px;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
 .main-content {

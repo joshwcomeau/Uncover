@@ -1,5 +1,5 @@
 <template>
-  <div class="max-width-wrapper">
+  <div class="max-width-wrapper" :class="{ narrow }">
     <slot>
       Whoops!
       You've created a MaxWidthWrapper component, but haven't passed it any children!
@@ -10,6 +10,10 @@
 <script>
 export default {
   name: 'max-width-wrapper',
+
+  props: {
+    narrow: Boolean,
+  },
 };
 </script>
 
@@ -25,5 +29,9 @@ export default {
   padding-right: 1rem;
   margin-left: auto;
   margin-right: auto;
+
+  &.narrow {
+    max-width: $maxWidthNarrow;
+  }
 }
 </style>

@@ -14,6 +14,7 @@ const icons = [
   'material-check',
   'material-keyboard_return',
   'material-delete',
+  'fa-book',
 ];
 
 module.exports = {
