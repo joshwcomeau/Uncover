@@ -1,3 +1,4 @@
+<!-- HTML -->
 <template>
   <max-width-wrapper narrow class="import-export">
     <h2 class="heading">
@@ -36,11 +37,11 @@
         Import Data
       </button-component>
     </div>
-
-
   </max-width-wrapper>
 </template>
 
+
+<!-- JAVASCRIPT -->
 <script>
 import mapValues from 'lodash/mapValues';
 import { mapActions } from 'vuex';
@@ -96,6 +97,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

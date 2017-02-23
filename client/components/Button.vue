@@ -1,3 +1,4 @@
+<!-- HTML -->
 <template>
   <button
     class="button"
@@ -21,6 +22,7 @@
 </template>
 
 
+<!-- JAVASCRIPT -->
 <script>
 import icon from 'vue-icons/icon';
 
@@ -56,6 +58,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

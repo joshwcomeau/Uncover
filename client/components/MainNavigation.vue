@@ -1,3 +1,4 @@
+<!-- HTML -->
 <template>
   <nav class="main-navigation">
     <router-link to="/about" class="nav-item">
@@ -13,6 +14,7 @@
 </template>
 
 
+<!-- JAVASCRIPT -->
 <script>
 import Button from './Button';
 
@@ -26,6 +28,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

@@ -1,3 +1,4 @@
+<!-- HTML -->
 <template>
   <max-width-wrapper narrow class="add-track">
     <h2>Add Track</h2>
@@ -62,6 +63,8 @@
   </max-width-wrapper>
 </template>
 
+
+<!-- JAVASCRIPT -->
 <script>
 import debounce from 'lodash/debounce';
 import { mapActions, mapGetters } from 'vuex';
@@ -187,6 +190,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

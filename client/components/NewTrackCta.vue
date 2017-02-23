@@ -1,3 +1,4 @@
+<!-- HTML -->
 <template>
   <div class="new-track-cta">
     <button-component
@@ -11,6 +12,7 @@
 </template>
 
 
+<!-- JAVASCRIPT -->
 <script>
 import Button from './Button';
 import router from '../router';
@@ -30,6 +32,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

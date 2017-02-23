@@ -1,3 +1,4 @@
+<!-- HTML -->
 <template>
   <li class="track-item">
     <a :href="url" target="_blank" rel="noopener noreferrer">
@@ -6,6 +7,8 @@
   </li>
 </template>
 
+
+<!-- JAVASCRIPT -->
 <script>
 export default {
   name: 'track-item',
@@ -15,6 +18,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

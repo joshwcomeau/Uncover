@@ -1,3 +1,4 @@
+<!-- HTML -->
 <template>
   <card-component class="track" :class="category">
     <header>
@@ -68,6 +69,7 @@
 </template>
 
 
+<!-- JAVASCRIPT -->
 <script>
 import { mapActions } from 'vuex';
 import dateFnsFormat from 'date-fns/format';
@@ -142,6 +144,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

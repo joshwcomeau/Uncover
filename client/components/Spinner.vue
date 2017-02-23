@@ -1,4 +1,4 @@
-<!-- Template -->
+<!-- HTML -->
 <template>
   <div class="spinner">
     <div class="lines">
@@ -11,7 +11,7 @@
 </template>
 
 
-<!-- Logic -->
+<!-- JAVASCRIPT -->
 <script>
 export default {
   name: 'book-spinner',
@@ -19,7 +19,7 @@ export default {
 </script>
 
 
-<!-- Styles -->
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

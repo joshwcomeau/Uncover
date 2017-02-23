@@ -1,3 +1,4 @@
+<!-- HTML -->
 <template>
   <div class="header-wrapper">
     <header class="header">
@@ -14,6 +15,8 @@
   </div>
 </template>
 
+
+<!-- JAVASCRIPT -->
 <script>
 import MaxWidthWrapper from './MaxWidthWrapper';
 import MainNavigation from './MainNavigation';
@@ -29,6 +32,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

@@ -1,4 +1,4 @@
-<!-- Template -->
+<!-- HTML -->
 <template>
   <span class="input-with-underline">
     <input
@@ -21,7 +21,7 @@
 </template>
 
 
-<!-- Logic -->
+<!-- JAVASCRIPT -->
 <script>
 import icon from 'vue-icons/icon';
 
@@ -55,7 +55,7 @@ export default {
 </script>
 
 
-<!-- Styles -->
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

@@ -1,3 +1,4 @@
+<!-- HTML -->
 <template>
   <div class="edit-media-types">
     <label>
@@ -47,6 +48,7 @@
 </template>
 
 
+<!-- JAVASCRIPT -->
 <script>
 export default {
   name: 'edit-media-types',
@@ -62,6 +64,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

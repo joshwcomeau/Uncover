@@ -1,3 +1,4 @@
+<!-- HTML -->
 <template>
   <div class="max-width-wrapper" :class="{ narrow }">
     <slot>
@@ -7,6 +8,8 @@
   </div>
 </template>
 
+
+<!-- JAVASCRIPT -->
 <script>
 export default {
   name: 'max-width-wrapper',
@@ -18,6 +21,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

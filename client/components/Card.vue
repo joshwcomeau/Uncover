@@ -1,9 +1,12 @@
+<!-- HTML -->
 <template>
   <div class="card">
     <slot></slot>
   </div>
 </template>
 
+
+<!-- JAVASCRIPT -->
 <script>
 export default {
   name: 'card',
@@ -11,6 +14,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

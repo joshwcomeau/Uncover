@@ -1,9 +1,12 @@
+<!-- HTML -->
 <template>
   <div class="horizontal-rule">
     <icon class="icon" name="fa-book" :size="16" />
   </div>
 </template>
 
+
+<!-- JAVASCRIPT -->
 <script>
 import icon from 'vue-icons/icon';
 
@@ -32,6 +35,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 

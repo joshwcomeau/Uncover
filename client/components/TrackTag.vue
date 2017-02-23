@@ -1,9 +1,11 @@
+<!-- HTML -->
 <template>
   <span class="track-tag" :class="type">
     {{ type | formatType }}
   </span>
 </template>
 
+<!-- JAVASCRIPT -->
 <script>
 export default {
   name: 'track-tag',
@@ -23,6 +25,7 @@ export default {
 </script>
 
 
+<!-- STYLES -->
 <style scoped lang="scss">
 @import '../styles/variables';
 
