@@ -1,32 +1,66 @@
 <!-- HTML -->
 <template>
-  <max-width-wrapper class="intro">
-    <h2>So, I really like audiobooks,</h2>
-    <p>and over the years I've accumulated a pretty sizeable list of authors I enjoy.</p>
+  <div>
+    <max-width-wrapper class="intro">
+      <h2>So, I really like fiction.</h2>
+      <p>
+        I'm a voracious reader. Over the years, I've discovered a
+        <a href="/">lot</a>
+        <a href="/">of</a>
+        <a href="/">fantastic</a>
+        <a href="/">authors</a>.
+      </p>
 
-    <p>When I finish a book and find myself in search of my next listen, I try to remember all the authors I like, and see if they have any new books.</p>
+      <p>
+        Whenever I finish a book, the hunt is on to discover my next read.
+        I'll try to remember an author I haven't read in a while, and see if they have any new releases out. I'll repeat this process for all the authors I can think of.
+      </p>
 
-    <p>This is an error-prone process; I've likely missed tons of books over the years! I decided to build a tool to make this process better.</p>
+      <p>
+        This is not a bulletproof process (it depends on my memory, after all, which is never a good idea). I've likely missed tons of fantastic books over the years.
+      </p>
 
-    <p>Uncover is an aggregator that shows you all of your favourite authors' latest releases.<strong>It's not just for audiobooks</strong> - it currently supports print and e-books as well, and I like the idea of expanding it (movie directors? TV show episodes?).</p>
+      <h3>💡 There has to be a better way!</h3>
 
-    <h4>Here are some sample authors:</h4>
+      <p>Uncover is a tool to help solve this problem by tracking your favourite authors, and aggregating their new releases. It allows you to filter by media type, and sorts by newest release. Finding your next book is now a 1-step process.</p>
 
-    <ul class="track-list">
-      <li class="track" v-for="track in sampleTrackList">
-        <track-component
-          :id="track.id"
-          :name="track.name"
-          :image="track.image"
-          :category="track.category"
-          :isFetching="track.isFetching"
-          :meta="track.meta"
-          :items="track.items"
-          :fetchTrackData="fetchTrackData"
-        />
-      </li>
-    </ul>
-  </max-width-wrapper>
+      <p>Uncover organizes these authors into rows. Here's an example:</p>
+
+      <ul class="track-list">
+        <li class="track" v-for="track in sampleTrackList">
+          <track-component
+            :id="track.id"
+            :name="track.name"
+            :image="track.image"
+            :category="track.category"
+            :isFetching="isFetching"
+            :meta="track.meta"
+            :items="track.items"
+            :fetchTrackData="fetchTrackData"
+          />
+        </li>
+      </ul>
+
+      <h3>🚀 Features</h3>
+
+      <ul class="features">
+        <li>
+          <strong>At-a-glance book discovery</strong>. The newest releases are always at the top of the page, so even with a large list of favourite authors, finding your next book is super quick.
+        </li>
+        <li>
+          <strong>Customizable media types</strong>. For each author, you can select which media types you care about, between print, e-book, and audiobook.
+        </li>
+        <li>
+          <strong>Cool stuff on the way</strong>. Uncover will soon handle a wider variety of content to track - TV shows, audiobook narrators, movie directors...
+        </li>
+        <li>
+          <strong>No registration required</strong>. Uncover stores your preferences locally, so there's no need to sign up. Add your first author now!
+        </li>
+      </ul>
+    </max-width-wrapper>
+
+    <add-track heading="Add Your First Track" />
+  </div>
 </template>
 
 
@@ -36,13 +70,14 @@ import { mapGetters } from 'vuex';
 import values from 'lodash/values';
 
 import { getTrackItems } from 'services/api';
+import AddTrack from 'components/AddTrack';
 import MaxWidthWrapper from 'components/MaxWidthWrapper';
 import Track from 'components/Track';
 
 
 export default {
   name: 'intro',
-  components: { TrackComponent: Track, MaxWidthWrapper },
+  components: { AddTrack, TrackComponent: Track, MaxWidthWrapper },
 
   created() {
   },
@@ -50,13 +85,6 @@ export default {
   data() {
     return {
       sampleTracks: {
-        '7044164': {
-          id: '7044164',
-          name: 'Scott Meyer',
-          image: 'https://images.gr-assets.com/authors/1366826945p5/7044164.jpg',
-          category: 'author',
-          meta: { mediaTypes: 'audiobook' },
-        },
         '7077654': {
           id: '7077654',
           name: 'Drew Hayes',
@@ -72,6 +100,11 @@ export default {
     ...mapGetters(['numOfTracks']),
     sampleTrackList() {
       return values(this.sampleTracks);
+    },
+    isFetching() {
+      const track = this.sampleTrackList[0];
+
+      return !track.items;
     },
   },
 
@@ -94,6 +127,48 @@ export default {
 
 .intro {
   padding-top: 2rem;
+  font-size: 20px;
+  color: $lightgray;
+
+  h2 {
+    font-size: 36px;
+    margin: 3rem 0 1.75rem;
+    color: $green;
+  }
+
+  h3 {
+    margin-top: 3.5rem;
+    font-size: 26px;
+    color: $white;
+  }
+
+  h4 {
+    margin: 2rem 0 3rem;
+    font-size: 20px;
+    color: $white;
+  }
+
+  p {
+    margin-bottom: 1.75rem;
+  }
+
+  a {
+    color: $white;
+    font-weight: 500;
+  }
+
+  .track-list {
+    margin-top: 4rem;
+  }
+
+  .features {
+    list-style-type: square;
+    margin-left: 1.5rem;
+
+    li {
+      margin-bottom: 1rem;
+    }
+  }
 }
 
 </style>

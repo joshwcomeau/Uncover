@@ -1,22 +1,9 @@
 <!-- HTML -->
 <template>
   <max-width-wrapper narrow class="add-track">
-    <h2>Add Track</h2>
+    <h2>{{ heading }}</h2>
 
     <card-component class="main-content">
-      <div class="form-section">
-        <h4>Category</h4>
-        <label>
-          <input type="radio" v-model="category" value="author" />
-          Author
-        </label>
-
-        <label>
-          <input type="radio" v-model="category" value="tv-show" disabled />
-          TV Show <span class="italic">(coming soon!)</span>
-        </label>
-      </div>
-
       <div class="form-section">
         <h4>Author</h4>
         <input-with-underline
@@ -100,6 +87,13 @@ export default {
       items: null,
       mediaTypes: 'print',
     };
+  },
+
+  props: {
+    heading: {
+      type: String,
+      default: 'Add Track',
+    },
   },
 
   computed: {

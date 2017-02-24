@@ -23,6 +23,8 @@ export const sortedTrackList = (state, { trackList }) => (
   })
 );
 
-export const noTracksYet = (state, { trackIds }) => (
-  trackIds.length === 0
+export const numOfTracks = (state, { trackIds }) => trackIds.length;
+
+export const noTracksYet = (state, { numOfTracks }) => (
+  numOfTracks === 0
 );

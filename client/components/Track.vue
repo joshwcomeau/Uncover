@@ -160,6 +160,7 @@ export default {
   position: relative;
   height: $track-height;
   display: flex;
+  color: $black;
 
   &::before {
     content: '';
