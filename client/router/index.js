@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import About from '../components/About';
-import AddTrack from '../components/AddTrack';
-import Home from '../components/Home';
-import ImportExport from '../components/ImportExport';
-import Intro from '../components/Intro';
+
+import About from 'routes/About';
+import AddTrack from 'routes/AddTrack';
+import Home from 'routes/Home';
+import ImportExport from 'routes/ImportExport';
+import Intro from 'routes/Intro';
 
 Vue.use(Router);
+
 
 const router = new Router({
   routes: [

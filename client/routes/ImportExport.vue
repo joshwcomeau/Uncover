@@ -46,12 +46,12 @@
 import mapValues from 'lodash/mapValues';
 import { mapActions } from 'vuex';
 
-import { LOCAL_STORAGE_KEY } from '../constants';
+import router from 'router';
+import { LOCAL_STORAGE_KEY } from 'constants';
 
-import Button from './Button';
-import HorizontalRule from './HorizontalRule';
-import MaxWidthWrapper from './MaxWidthWrapper';
-import router from '../router';
+import Button from 'components/Button';
+import HorizontalRule from 'components/HorizontalRule';
+import MaxWidthWrapper from 'components/MaxWidthWrapper';
 
 
 export default {

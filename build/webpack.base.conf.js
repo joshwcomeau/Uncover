@@ -42,6 +42,7 @@ module.exports = {
       'components': resolve('client/components'),
       'constants': resolve('client/constants'),
       'store': resolve('client/store'),
+      'routes': resolve('client/routes'),
     }
   },
   module: {

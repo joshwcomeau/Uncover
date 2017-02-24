@@ -34,9 +34,9 @@ import { mapActions, mapGetters } from 'vuex';
 
 import router from 'router';
 import AppHeader from 'components/AppHeader';
-import MaxWidthWrapper from './MaxWidthWrapper';
-import Track from './Track';
-import NewTrackCta from './NewTrackCta';
+import MaxWidthWrapper from 'components/MaxWidthWrapper';
+import Track from 'components/Track';
+import NewTrackCta from 'components/NewTrackCta';
 
 
 export default {

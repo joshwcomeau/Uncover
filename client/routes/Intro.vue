@@ -59,7 +59,12 @@
       </ul>
     </max-width-wrapper>
 
-    <add-track heading="Add Your First Track" />
+    <div class="add-track-wrapper">
+      <max-width-wrapper narrow>
+        <h2>Add Your First Author</h2>
+        <AddTrackForm />
+      </max-width-wrapper>
+    </div>
   </div>
 </template>
 
@@ -70,17 +75,14 @@ import { mapGetters } from 'vuex';
 import values from 'lodash/values';
 
 import { getTrackItems } from 'services/api';
-import AddTrack from 'components/AddTrack';
+import AddTrackForm from 'components/AddTrackForm';
 import MaxWidthWrapper from 'components/MaxWidthWrapper';
 import Track from 'components/Track';
 
 
 export default {
   name: 'intro',
-  components: { AddTrack, TrackComponent: Track, MaxWidthWrapper },
-
-  created() {
-  },
+  components: { AddTrackForm, TrackComponent: Track, MaxWidthWrapper },
 
   data() {
     return {
@@ -168,6 +170,18 @@ export default {
     li {
       margin-bottom: 1rem;
     }
+  }
+}
+
+.add-track-wrapper {
+  background: $teal;
+  padding: 3rem 0;
+  margin: 3rem 0;
+
+  h2 {
+    font-size: 36px;
+    color: $white;
+    margin-bottom: 2rem;
   }
 }
 

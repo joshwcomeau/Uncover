@@ -1,53 +1,49 @@
 <!-- HTML -->
 <template>
-  <max-width-wrapper narrow class="add-track">
-    <h2>{{ heading }}</h2>
+  <card-component class="add-track-form">
+    <div class="form-section">
+      <h4>Author</h4>
+      <input-with-underline
+        v-model="searchTerm"
+        placeholder="eg. Drew Hayes"
+        :iconName="searchIcon.name"
+        :iconColor="searchIcon.color"
+        :iconSpin="searchIcon.spin"
+      />
 
-    <card-component class="main-content">
+      <div class="book-examples" v-if="items">
+        <div class="cover"></div>
+        <div class="contents">
+          <h6>Examples from this author:</h6>
+
+          <ul class="book-example-list">
+            <li v-for="item in items">
+              <img class="book-example" :src="item.image" />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
       <div class="form-section">
-        <h4>Author</h4>
-        <input-with-underline
-          v-model="searchTerm"
-          placeholder="eg. Drew Hayes"
-          :iconName="searchIcon.name"
-          :iconColor="searchIcon.color"
-          :iconSpin="searchIcon.spin"
-        />
-
-        <div class="book-examples" v-if="items">
-          <div class="cover"></div>
-          <div class="contents">
-            <h6>Examples from this author:</h6>
-
-            <ul class="book-example-list">
-              <li v-for="item in items">
-                <img class="book-example" :src="item.image" />
-              </li>
-            </ul>
-          </div>
-        </div>
+        <h4>Media Type</h4>
+        <edit-media-types v-model="mediaTypes" />
       </div>
+    </div>
 
-      <div class="row">
-        <div class="form-section">
-          <h4>Media Type</h4>
-          <edit-media-types v-model="mediaTypes" />
-        </div>
-      </div>
-
-      <footer>
-        <button-component
-          :disabled="!isValid"
-          size="large"
-          color="purple"
-          class="add-track-button"
-          :handleClick="saveTrack"
-        >
-          Add Track
-        </button-component>
-      </footer>
-    </card-component>
-  </max-width-wrapper>
+    <footer>
+      <button-component
+        :disabled="!isValid"
+        size="large"
+        color="purple"
+        class="add-track-button"
+        :handleClick="saveTrack"
+      >
+        Add Track
+      </button-component>
+    </footer>
+  </card-component>
 </template>
 
 
@@ -55,15 +51,15 @@
 <script>
 import debounce from 'lodash/debounce';
 import { mapActions, mapGetters } from 'vuex';
-import router from '../router';
 
-import { getTrackInfo } from '../services/api';
+import router from 'router';
+import { getTrackInfo } from 'services/api';
 
-import Button from './Button';
-import Card from './Card';
-import EditMediaTypes from './EditMediaTypes';
-import InputWithUnderline from './InputWithUnderline';
-import MaxWidthWrapper from './MaxWidthWrapper';
+import Button from 'components/Button';
+import Card from 'components/Card';
+import EditMediaTypes from 'components/EditMediaTypes';
+import InputWithUnderline from 'components/InputWithUnderline';
+import MaxWidthWrapper from 'components/MaxWidthWrapper';
 
 
 export default {
@@ -205,13 +201,7 @@ export default {
 
 $content-padding: 2rem;
 
-
-.add-track {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-}
-
-.main-content {
+.add-track-form {
   padding: $content-padding;
   line-height: 1.65;
 }
