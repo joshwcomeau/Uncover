@@ -174,7 +174,9 @@ export default {
 }
 
 .add-track-wrapper {
-  background: $teal;
+  background: $black;
+  border-top: 1px solid lighten($darkgray, 5%);
+  box-shadow: inset 0px 2px 20px rgba(0,0,0,0.2);
   padding: 3rem 0;
   margin: 3rem 0;
 
@@ -182,6 +184,7 @@ export default {
     font-size: 36px;
     color: $white;
     margin-bottom: 2rem;
+    text-shadow: 0px 1px 7px rgba(0,0,0,0.1);
   }
 }
 

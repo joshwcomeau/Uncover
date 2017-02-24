@@ -21,7 +21,7 @@ export default {
 .card {
   background: $white;
   margin: 1.5rem 0;
-  box-shadow: 0px 4px 20px rgba(0,0,0,0.5);
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
   border-radius: 2px;
 }
 </style>
