@@ -6,7 +6,9 @@
         <img class="track-image" :src="image" />
 
         <h3 class="track-name">{{ name }}</h3>
-        <h6 class="track-last-updated-at" v-if="latestReleaseDate">Latest release: {{ latestReleaseDate | formatDate }}</h6>
+        <h6 class="track-last-updated-at" v-if="latestReleaseDate">
+          Latest release: {{ latestReleaseDate | formatDate }}
+        </h6>
       </div>
 
       <div class="track-actions">
@@ -110,36 +112,26 @@ export default {
   ],
 
   data() {
-    return {
-      isEditing: false,
-    };
+    return { isEditing: false };
   },
 
   methods: {
-    toggleEditing() {
-      this.isEditing = !this.isEditing;
-    },
+    toggleEditing() { this.isEditing = !this.isEditing; },
   },
 
   created() {
-    console.log(this.fetchTrackData)
-    // Fetch the items for our tracks
     this.fetchTrackData(this.id);
   },
 
   computed: {
-    latestReleaseDate() {
-      return get(this.items, '0.releaseDate');
-    },
+    latestReleaseDate() { return get(this.items, '0.releaseDate'); },
 
     mediaTypes: {
       get() { return this.meta.mediaTypes; },
       set(val) {
         this.updateTrackMetadata({
           trackId: this.id,
-          meta: {
-            mediaTypes: val,
-          },
+          meta: { mediaTypes: val },
         });
       },
     },

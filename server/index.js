@@ -33,10 +33,10 @@ module.exports = async function run(req, res) {
     }
 
     case '/get-track-items': {
-      const { track } = await json(req);
+      const { track, options = {} } = await json(req);
 
       // TODO: Support things other than authors.
-      results = await getTrackItems(track);
+      results = await getTrackItems(track, options);
 
       break;
     }

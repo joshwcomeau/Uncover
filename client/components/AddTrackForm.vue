@@ -11,15 +11,16 @@
         :iconSpin="searchIcon.spin"
       />
 
-      <div class="book-examples" v-if="items">
+      <div class="book-examples" v-if="exampleItems">
         <div class="cover"></div>
         <div class="contents">
-          <h6>Examples from this author:</h6>
-
-          <ul class="book-example-list">
-            <li v-for="item in items">
-              <img class="book-example" :src="item.image" />
-            </li>
+          Matched <span class="author-name">{{ name }}</span>, author of
+          <ul class="book-titles">
+            <li v-for="item in exampleItems"><!--
+           --><a :href="item.url" target="_blank"><!--
+             -->{{ item.title }}<!--
+           --></a><!--
+         --></li>
           </ul>
         </div>
       </div>
@@ -107,12 +108,20 @@ export default {
     },
     isValid() {
       return (
-        !this.isSearching &&
         this.category &&
         this.id &&
-        this.name &&
-        this.mediaTypes.length > 0
+        this.name
       );
+    },
+    exampleItems() {
+      if (!this.items) {
+        return null;
+      }
+
+      return this.items.slice(0, 3).map(item => ({
+        title: item.title,
+        url: item.url,
+      }));
     },
   },
 
@@ -231,38 +240,41 @@ label {
 
 .book-examples {
   position: relative;
-  margin: 1.5rem $content-padding * -1;
-  overflow: hidden;
+  margin: 1.5rem 0;
+  font-size: 13px;
 
-  .cover {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: $white;
-
-    animation: slideDown 1000ms both 250ms;
+  .author-name {
+    font-weight: 700;
+    color: $green;
   }
 
-  .contents {
-    position: relative;
-    z-index: 1;
-    padding: 1rem $content-padding;
-    background: $offwhite;
-    box-shadow: inset 0px 1px 4px rgba(0,0,0,0.2);
-  }
-}
-.book-example-list {
-  display: flex;
-  overflow: hidden;
-  white-space: nowrap;
-  margin-bottom: 0;
+  .book-titles {
+    display: inline;
 
-  .book-example {
-    height: 100px;
-    margin-right: 0.5rem;
+    li {
+      display: inline;
+
+      &:after {
+        content: ', ';
+      }
+
+      &:last-of-type::before {
+        content: 'and ';
+      }
+
+      &:last-of-type::after {
+        content: '.';
+      }
+
+      &:first-of-type::before {
+        content: '' !important;
+      }
+    }
+
+    a {
+      color: $blue;
+      font-weight: 500;
+    }
   }
 }
 

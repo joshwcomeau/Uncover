@@ -45,7 +45,7 @@ const pluckBooksFromAmazonResponse = (searchTerm, result) => (
     ))
 );
 
-const getTrackItems = (track) => {
+const getTrackItems = (track, options) => {
   const {
     name: author,
     meta: { mediaTypes },
@@ -69,7 +69,7 @@ const getTrackItems = (track) => {
 
   const query = { power: createPowerString(power) };
 
-  return searchAmazon(query).then((response) => {
+  return searchAmazon(query, options).then((response) => {
     const relevantBooks = pluckBooksFromAmazonResponse(author, response);
 
     return Object.assign({}, track, {
@@ -90,7 +90,7 @@ module.exports.getAuthorProfileAndTrackItems = async (searchTerm) => {
   // most recent releases.
   const [authorInfo, trackItems] = await Promise.all([
     getAuthorInfo(id),
-    getTrackItems({ id, name, meta: {} }),
+    getTrackItems({ id, name, meta: {} }, { sort: 'salesrank' }),
   ]);
 
   return {
