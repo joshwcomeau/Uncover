@@ -1,19 +1,23 @@
 <template>
   <div id="app">
     <app-header />
+
     <div id="main-content">
       <router-view></router-view>
     </div>
+
+    <app-footer />
   </div>
 </template>
 
 <script>
 import AppHeader from 'components/AppHeader';
+import AppFooter from 'components/AppFooter';
 
 export default {
   name: 'app',
 
-  components: { AppHeader },
+  components: { AppHeader, AppFooter },
 };
 </script>
 
@@ -58,7 +62,7 @@ a {
   position: relative;
   z-index: 2;
   background: $darkgray;
-  border-top: 1px solid lighten($darkgray, 5%);
+  border-top: 1px solid lighten($darkgray, 8%);
   box-shadow: 0px -2px 20px rgba(17, 17, 17, 1);
   flex: 1;
 }

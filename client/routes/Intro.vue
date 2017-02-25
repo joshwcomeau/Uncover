@@ -1,63 +1,73 @@
 <!-- HTML -->
 <template>
-  <div>
-    <max-width-wrapper class="intro">
-      <h2>So, I really like fiction.</h2>
-      <p>
-        I'm a voracious reader. Over the years, I've discovered a
-        <a href="/">lot</a>
-        <a href="/">of</a>
-        <a href="/">fantastic</a>
-        <a href="/">authors</a>.
-      </p>
+  <div><!-- Group our Intro and AddTrack together -->
+    <div class="intro">
+      <max-width-wrapper class="intro-wrapper">
+        <h2>So, I really like fiction.</h2>
+        <p>
+          I'm a voracious reader. Over the years, I've discovered a
+          <a href="https://www.goodreads.com/author/list/7044164.Scott_Meyer" target="_blank">lot</a>
+          <a href="https://www.goodreads.com/author/list/7077654.Drew_Hayes" target="_blank">of</a>
+          <a href="https://www.goodreads.com/author/list/10746.Jim_Butcher" target="_blank">fantastic</a>
+          <a href="https://www.goodreads.com/author/list/4763.John_Scalzi" target="_blank">authors</a>.
+        </p>
 
-      <p>
-        Whenever I finish a book, the hunt is on to discover my next read.
-        I'll try to remember an author I haven't read in a while, and see if they have any new releases out. I'll repeat this process for all the authors I can think of.
-      </p>
+        <p>
+          Whenever I finish a book, the hunt is on to discover my next read. For the past decade or so, this has been my process:
+        </p>
 
-      <p>
-        This is not a bulletproof process (it depends on my memory, after all, which is never a good idea). I've likely missed tons of fantastic books over the years.
-      </p>
+        <ol>
+          <li>Search my memory for an author I enjoyed, ideally one I haven't read in a while.</li>
+          <li>Check to see if they have any new releases, by googling for them and poking around on their homepage.</li>
+          <li>Repeat until I find a new book (or, more often, my memory fails me).</li>
+        </ol>
 
-      <h3>💡 There has to be a better way!</h3>
+        <p>
+          Obviously, this is not a good system. I've probably missed tons of great books, and I've certainly wasted lots of time.
+        </p>
 
-      <p>Uncover is a tool to help solve this problem by tracking your favourite authors, and aggregating their new releases. It allows you to filter by media type, and sorts by newest release. Finding your next book is now a 1-step process.</p>
+        <h3>💡 There has to be a better way!</h3>
 
-      <p>Uncover organizes these authors into rows. Here's an example:</p>
+        <p>Uncover is a tool to help solve this problem by tracking your favourite authors, and aggregating their new releases. It allows you to filter by media type, and sorts by newest release. Finding your next book is now a 1-step process.</p>
 
-      <ul class="track-list">
-        <li class="track" v-for="track in sampleTrackList">
-          <track-component
-            :id="track.id"
-            :name="track.name"
-            :image="track.image"
-            :category="track.category"
-            :isFetching="isFetching"
-            :meta="track.meta"
-            :items="track.items"
-            :fetchTrackData="fetchTrackData"
-          />
-        </li>
-      </ul>
+        <p>Uncover organizes these authors into rows. Here's an example:</p>
 
-      <h3>🚀 Features</h3>
+        <ul class="track-list">
+          <li class="track" v-for="track in sampleTrackList">
+            <track-component
+              :id="track.id"
+              :name="track.name"
+              :image="track.image"
+              :category="track.category"
+              :isFetching="isFetching"
+              :meta="track.meta"
+              :items="track.items"
+              :fetchTrackData="fetchTrackData"
+            />
+          </li>
+        </ul>
 
-      <ul class="features">
-        <li>
-          <strong>At-a-glance book discovery</strong>. The newest releases are always at the top of the page, so even with a large list of favourite authors, finding your next book is super quick.
-        </li>
-        <li>
-          <strong>Customizable media types</strong>. For each author, you can select which media types you care about, between print, e-book, and audiobook.
-        </li>
-        <li>
-          <strong>Cool stuff on the way</strong>. Uncover will soon handle a wider variety of content to track - TV shows, audiobook narrators, movie directors...
-        </li>
-        <li>
-          <strong>No registration required</strong>. Uncover stores your preferences locally, so there's no need to sign up. Add your first author now!
-        </li>
-      </ul>
-    </max-width-wrapper>
+        <h3>🚀 Features</h3>
+
+        <ul class="features">
+          <li>
+            <strong>At-a-glance book discovery</strong>. The newest releases are always at the top of the page, so even with a large list of favourite authors, finding your next book is super quick.
+          </li>
+          <li>
+            <strong>Customizable media types</strong>. For each author, you can select which media types you care about, between print, e-book, and audiobook.
+          </li>
+          <li>
+            <strong>Cool stuff on the way</strong>. Uncover will soon handle a wider variety of content to track - TV shows, audiobook narrators, movie directors...
+          </li>
+          <li>
+            <strong>Open-source</strong>. If you're a web developer, you can <a href="https://github.com/joshwcomeau/Uncover" target="_blank">fork it</a> and tweak it however you like.
+          </li>
+          <li>
+            <strong>No registration required</strong>. Uncover stores your preferences locally, so there's no need to sign up. Add your first author now!
+          </li>
+        </ul>
+      </max-width-wrapper>
+    </div>
 
     <div class="add-track-wrapper">
       <max-width-wrapper narrow>
@@ -65,6 +75,8 @@
         <AddTrackForm />
       </max-width-wrapper>
     </div>
+
+    <div class="footer-border"></div>
   </div>
 </template>
 
@@ -127,10 +139,19 @@ export default {
 <style scoped lang="scss">
 @import '../styles/variables';
 
+$add-track-height: 600px;
+
 .intro {
+  position: relative;
+  z-index: 2;
   padding-top: 2rem;
+  padding-bottom: 2rem;
   font-size: 20px;
   color: $lightgray;
+  background: $darkgray;
+  margin-bottom: $add-track-height - $footer-height;
+  border-bottom: 1px solid lighten($darkgray, 5%);
+  box-shadow: 0px 2px 20px rgba(17, 17, 17, 1);
 
   h2 {
     font-size: 36px;
@@ -159,6 +180,25 @@ export default {
     font-weight: 500;
   }
 
+  ol {
+    list-style-type: none;
+    counter-reset: old-system-steps;
+    padding-left: 2rem;
+    margin-bottom: 3rem;
+
+    li {
+      margin-bottom: 1rem;
+    }
+
+    li:before {
+      content: counter(old-system-steps);
+      counter-increment: old-system-steps;
+      color: $yellow;
+      margin-right: 0.5rem;
+      font-weight: 900;
+    }
+  }
+
   .track-list {
     margin-top: 4rem;
   }
@@ -170,15 +210,22 @@ export default {
     li {
       margin-bottom: 1rem;
     }
+
+    strong {
+      color: $yellow;
+    }
   }
 }
 
 .add-track-wrapper {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: $add-track-height;
   background: $black;
-  border-top: 1px solid lighten($darkgray, 5%);
-  box-shadow: inset 0px 2px 20px rgba(0,0,0,0.2);
   padding: 3rem 0;
-  margin: 3rem 0;
 
   h2 {
     font-size: 36px;
@@ -186,6 +233,13 @@ export default {
     margin-bottom: 2rem;
     text-shadow: 0px 1px 7px rgba(0,0,0,0.1);
   }
+}
+
+.footer-border {
+  position: relative;
+  z-index: 2;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 </style>
