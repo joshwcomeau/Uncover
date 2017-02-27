@@ -1,4 +1,6 @@
-const apiHost = 'http://localhost:4000';
+const apiHost = `${process.env.HOST}:${process.env.PORT}`;
+
+console.log(`${process.env.HOST}:${process.env.PORT}`)
 
 const toJson = response => response.json();
 

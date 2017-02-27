@@ -1,10 +1,21 @@
+const fs = require('fs');
 const { json, send } = require('micro');
 
-const { getPathnameAndQuery } = require('./helpers/misc.helpers');
+const {
+  getPathnameAndQuery,
+  readFilePromise,
+} = require('./helpers/misc.helpers');
 const {
   getTrackItems,
   getAuthorProfileAndTrackItems,
 } = require('./helpers/author.helpers');
+
+// NOTE: We're using the sync method here because it only runs during
+// server init, not on every request.
+const fsOptions = { encoding: 'utf8' };
+const indexHtml = fs.readFileSync('./dist/index.html', fsOptions);
+
+console.log({ indexHtml });
 
 module.exports = async function run(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -42,7 +53,18 @@ module.exports = async function run(req, res) {
     }
 
     default:
-      throw new Error(`Unrecognized pathname: ${pathname}`);
+      // This is a makeshift router.
+      // Honestly, I should probably ditch this file and go with a
+      // traditional Express setup, since I'm not actually using this as
+      // a microservice.
+      if (pathname.match(/^\/static\//)) {
+        const filePath = `./dist${pathname}`;
+        const file = await readFilePromise(filePath, fsOptions);
+
+        return file;
+      }
+
+      return indexHtml;
   }
 
   return results;
