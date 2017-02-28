@@ -69,7 +69,10 @@
       </max-width-wrapper>
     </div>
 
-    <div class="add-track-wrapper">
+    <div
+      class="add-track-wrapper"
+      :style="{ transform: `translateY(${addTrackOverlayOpacity * 100}px)`}"
+    >
       <div class="overlay" :style="{ opacity: addTrackOverlayOpacity }"></div>
       <max-width-wrapper narrow>
         <h2>Add Your First Author</h2>
@@ -99,8 +102,7 @@ export default {
   components: { AddTrackForm, TrackComponent: Track, MaxWidthWrapper },
 
   created() {
-    const spreadGradientOverHeight = 400;
-    const spreadGradientOffset = 100;
+    const spreadGradientOverHeight = 650;
     this.scrollHandler = window.addEventListener('scroll', () => {
       const windowHeight = window.innerHeight;
       const elementBottom = this.$refs.introElement.getBoundingClientRect().bottom;
@@ -113,12 +115,11 @@ export default {
       );
 
       // Normalize that value, between 0 and our spread height
-      const normalizedValue = Math.min(
-        1,
-        (heightOfVisibleForm - spreadGradientOffset) / spreadGradientOverHeight * -1 + 1,
-      );
+      const normalizedValue = heightOfVisibleForm / spreadGradientOverHeight * -1 + 1;
 
-      this.addTrackOverlayOpacity = normalizedValue;
+      const constrainedValue = Math.min(1, Math.max(0, normalizedValue))
+
+      this.addTrackOverlayOpacity = constrainedValue;
     });
   },
 
@@ -166,7 +167,7 @@ export default {
 <style scoped lang="scss">
 @import '../styles/variables';
 
-$add-track-height: 600px;
+$add-track-height: 645px;
 
 .intro {
   position: relative;
