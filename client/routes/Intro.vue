@@ -1,7 +1,7 @@
 <!-- HTML -->
 <template>
   <div><!-- Group our Intro and AddTrack together -->
-    <div class="intro">
+    <div class="intro" ref="introElement">
       <max-width-wrapper class="intro-wrapper">
         <h2>So, I really like fiction.</h2>
         <p>
@@ -70,6 +70,7 @@
     </div>
 
     <div class="add-track-wrapper">
+      <div class="overlay" :style="{ opacity: addTrackOverlayOpacity }"></div>
       <max-width-wrapper narrow>
         <h2>Add Your First Author</h2>
         <AddTrackForm />
@@ -83,6 +84,7 @@
 
 <!-- JAVASCRIPT -->
 <script>
+/* eslint-disable no-mixed-operators */
 import { mapGetters } from 'vuex';
 import values from 'lodash/values';
 
@@ -96,8 +98,33 @@ export default {
   name: 'intro',
   components: { AddTrackForm, TrackComponent: Track, MaxWidthWrapper },
 
+  created() {
+    const spreadGradientOverHeight = 400;
+    const spreadGradientOffset = 100;
+    this.scrollHandler = window.addEventListener('scroll', () => {
+      const windowHeight = window.innerHeight;
+      const elementBottom = this.$refs.introElement.getBoundingClientRect().bottom;
+
+      // Get the number of pixels of the visible form, clamping to 0
+      // so that the number is never negative.
+      const heightOfVisibleForm = Math.max(
+        0,
+        windowHeight - elementBottom,
+      );
+
+      // Normalize that value, between 0 and our spread height
+      const normalizedValue = Math.min(
+        1,
+        (heightOfVisibleForm - spreadGradientOffset) / spreadGradientOverHeight * -1 + 1,
+      );
+
+      this.addTrackOverlayOpacity = normalizedValue;
+    });
+  },
+
   data() {
     return {
+      addTrackOverlayOpacity: 0,
       sampleTracks: {
         '7077654': {
           id: '7077654',
@@ -232,6 +259,17 @@ $add-track-height: 600px;
     color: $white;
     margin-bottom: 2rem;
     text-shadow: 0px 1px 7px rgba(0,0,0,0.1);
+  }
+
+  .overlay {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #111111;
+    pointer-events: none;
   }
 }
 
