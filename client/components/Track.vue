@@ -98,25 +98,32 @@ export default {
     TrackItem,
   },
 
-  props: [
-    'id',
-    'name',
-    'image',
-    'category',
-    'meta',
-    'isFetching',
-    'items',
-    'fetchTrackData',
-    'updateTrackMetadata',
-    'deleteTrack',
-  ],
+  props: {
+    id: String,
+    name: String,
+    image: String,
+    category: String,
+    meta: Object,
+    items: Array,
+    isFetching: Boolean,
+    isEditable: Boolean,
+    fetchTrackData: Function,
+    updateTrackMetadata: Function,
+    deleteTrack: Function,
+  },
 
   data() {
     return { isEditing: false };
   },
 
   methods: {
-    toggleEditing() { this.isEditing = !this.isEditing; },
+    toggleEditing() {
+      this.$emit('toggleEdit');
+
+      if (this.isEditable) {
+        this.isEditing = !this.isEditing;
+      }
+    },
   },
 
   created() {

@@ -47,7 +47,7 @@ export default {
 
   h1 {
     position: absolute;
-    left: 1rem;
+    left: 3rem;
     bottom: 6px;
     font-size: 56px;
     letter-spacing: -2px;

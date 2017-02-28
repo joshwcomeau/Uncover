@@ -29,8 +29,8 @@ export default {
   position: relative;
   width: 100%;
   max-width: $maxWidth;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   margin-left: auto;
   margin-right: auto;
 

@@ -43,6 +43,7 @@
               :meta="track.meta"
               :items="track.items"
               :fetchTrackData="fetchTrackData"
+              @toggleEdit="handleToggleEdit"
             />
           </li>
         </ul>
@@ -69,18 +70,14 @@
       </max-width-wrapper>
     </div>
 
-    <div
-      class="add-track-wrapper"
-      :style="{ transform: `translateY(${addTrackOverlayOpacity * 100}px)`}"
-    >
-      <div class="overlay" :style="{ opacity: addTrackOverlayOpacity }"></div>
-      <max-width-wrapper narrow>
-        <h2>Add Your First Author</h2>
-        <AddTrackForm />
-      </max-width-wrapper>
-    </div>
-
-    <div class="footer-border"></div>
+    <section class="add-track" :style="{ transform: addTrackTranslate }">
+      <div class="add-track-contents" :style="{ opacity: addTrackOpacity }">
+        <max-width-wrapper narrow style="{ opacity: addTrackOpacity }">
+          <h2>Add Your First Author</h2>
+          <AddTrackForm />
+        </max-width-wrapper>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -90,6 +87,7 @@
 /* eslint-disable no-mixed-operators */
 import { mapGetters } from 'vuex';
 import values from 'lodash/values';
+import clamp from 'lodash/clamp';
 
 import { getTrackItems } from 'services/api';
 import AddTrackForm from 'components/AddTrackForm';
@@ -97,35 +95,25 @@ import MaxWidthWrapper from 'components/MaxWidthWrapper';
 import Track from 'components/Track';
 
 
+// TODO: Is there a way to share this value between JS and SCSS?
+const totalFormHeight = 650;
+
 export default {
   name: 'intro',
   components: { AddTrackForm, TrackComponent: Track, MaxWidthWrapper },
 
   created() {
-    const spreadGradientOverHeight = 650;
-    this.scrollHandler = window.addEventListener('scroll', () => {
-      const windowHeight = window.innerHeight;
-      const elementBottom = this.$refs.introElement.getBoundingClientRect().bottom;
+    window.addEventListener('scroll', this.handleScroll);
+  },
 
-      // Get the number of pixels of the visible form, clamping to 0
-      // so that the number is never negative.
-      const heightOfVisibleForm = Math.max(
-        0,
-        windowHeight - elementBottom,
-      );
-
-      // Normalize that value, between 0 and our spread height
-      const normalizedValue = heightOfVisibleForm / spreadGradientOverHeight * -1 + 1;
-
-      const constrainedValue = Math.min(1, Math.max(0, normalizedValue))
-
-      this.addTrackOverlayOpacity = constrainedValue;
-    });
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
 
   data() {
     return {
-      addTrackOverlayOpacity: 0,
+      addTrackOpacity: 0,
+      addTrackTranslate: 0,
       sampleTracks: {
         '7077654': {
           id: '7077654',
@@ -157,6 +145,32 @@ export default {
       getTrackItems(track).then((data) => {
         this.sampleTracks[id] = data;
       });
+    },
+
+    handleScroll() {
+      const elem = this.$refs.introElement
+      const elementBottom = elem.getBoundingClientRect().bottom;
+
+      // Get the number of pixels of the visible form.
+      // Ensure the value is between 0 and our total form height.
+      const heightOfVisibleForm = clamp(
+        window.innerHeight - elementBottom,
+        0,
+        totalFormHeight,
+      );
+
+      // Calculate the opacity as a value between 0 and 1.
+      const opacity = clamp(heightOfVisibleForm / totalFormHeight, 0, 1);
+      this.addTrackOpacity = opacity;
+
+      // Calculate the translate, which is inversely related to the
+      // visible form height
+      const translate = 125 - Math.ceil(opacity * 125);
+      this.addTrackTranslate = `translateY(${translate}px)`;
+    },
+
+    handleToggleEdit() {
+      window.alert('Sorry, ');
     },
   },
 };
@@ -245,7 +259,7 @@ $add-track-height: 645px;
   }
 }
 
-.add-track-wrapper {
+.add-track {
   position: fixed;
   z-index: 1;
   left: 0;
