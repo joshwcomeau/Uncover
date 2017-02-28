@@ -33,17 +33,18 @@
         <p>Uncover organizes these authors into rows. Here's an example:</p>
 
         <ul class="track-list">
-          <li class="track" v-for="track in sampleTrackList">
+          <li class="track">
             <track-component
-              :id="track.id"
-              :name="track.name"
-              :image="track.image"
-              :category="track.category"
+              :id="sampleTrack.id"
+              :name="sampleTrack.name"
+              :image="sampleTrack.image"
+              :category="sampleTrack.category"
               :isFetching="isFetching"
-              :meta="track.meta"
-              :items="track.items"
+              :meta="sampleTrack.meta"
+              :items="sampleTrack.items"
               :fetchTrackData="fetchTrackData"
-              @toggleEdit="handleToggleEdit"
+              :updateTrackMetadata="updateTrackMetadata"
+              :deleteTrack="deleteTrack"
             />
           </li>
         </ul>
@@ -86,7 +87,6 @@
 <script>
 /* eslint-disable no-mixed-operators */
 import { mapGetters } from 'vuex';
-import values from 'lodash/values';
 import clamp from 'lodash/clamp';
 
 import { getTrackItems } from 'services/api';
@@ -114,37 +114,40 @@ export default {
     return {
       addTrackOpacity: 0,
       addTrackTranslate: 0,
-      sampleTracks: {
-        '7077654': {
-          id: '7077654',
-          name: 'Drew Hayes',
-          image: 'https://images.gr-assets.com/authors/1367797581p5/7077654.jpg',
-          category: 'author',
-          meta: { mediaTypes: 'audiobook' },
-        },
+      sampleTrack: {
+        id: '7077654',
+        name: 'Drew Hayes',
+        image: 'https://images.gr-assets.com/authors/1367797581p5/7077654.jpg',
+        category: 'author',
+        meta: { mediaTypes: 'audiobook' },
       },
     };
   },
 
   computed: {
     ...mapGetters(['numOfTracks']),
-    sampleTrackList() {
-      return values(this.sampleTracks);
-    },
     isFetching() {
-      const track = this.sampleTrackList[0];
-
-      return !track.items;
+      return !this.sampleTrack.items;
     },
   },
 
   methods: {
-    fetchTrackData(id) {
-      const track = this.sampleTracks[id];
+    fetchTrackData() {
+      const track = this.sampleTrack;
 
       getTrackItems(track).then((data) => {
-        this.sampleTracks[id] = data;
+        this.sampleTrack = data;
       });
+    },
+
+    updateTrackMetadata({ meta }) {
+      this.sampleTrack.meta = meta;
+
+      this.fetchTrackData();
+    },
+
+    deleteTrack() {
+      alert("Hey! Don't do that!")
     },
 
     handleScroll() {
@@ -167,10 +170,6 @@ export default {
       // visible form height
       const translate = 125 - Math.ceil(opacity * 125);
       this.addTrackTranslate = `translateY(${translate}px)`;
-    },
-
-    handleToggleEdit() {
-      window.alert('Sorry, ');
     },
   },
 };

@@ -106,7 +106,6 @@ export default {
     meta: Object,
     items: Array,
     isFetching: Boolean,
-    isEditable: Boolean,
     fetchTrackData: Function,
     updateTrackMetadata: Function,
     deleteTrack: Function,
@@ -119,10 +118,7 @@ export default {
   methods: {
     toggleEditing() {
       this.$emit('toggleEdit');
-
-      if (this.isEditable) {
-        this.isEditing = !this.isEditing;
-      }
+      this.isEditing = !this.isEditing;
     },
   },
 
