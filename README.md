@@ -1,30 +1,44 @@
-# uncover
+# 📚 Uncover
 
-> Stay up-to-date on your favourite books, TV shows, and more.
+> Find your next new book in 1 step.
 
-## Build Setup
+Uncover is a new-release aggregator that helps you discover when your favourite authors release new books. The goal is to provide a single page that you can bookmark, and check whenever you want to find a new book.
 
-``` bash
-# install dependencies
-npm install
+The feature-set is incredibly simple: a single page that shows you the newest books published by authors you choose. I do have features I plan on adding, but the core concept will remain the same: a simple, quick way to find new stuff you'll like.
 
-# serve with hot reload at localhost:8080
-npm run dev
 
-# build for production with minification
-npm run build
+### Technical Details
 
-# build for production and view the bundle analyzer report
-npm run build --report
+Uncover is a full-stack application, running Node/Express on the server and Vue.js (with vue-router, vuex) on the client.
 
-# run unit tests
-npm run unit
+Most of the logic happens on the client. The server, at the time of writing, is mostly just a thin wrapper around the Goodreads and Amazon Product Advertising APIs.
 
-# run e2e tests
-npm run e2e
+I wanted to avoid implementing an accounts system. This is both because I don't believe it's necessary (at least, not yet), and because I like the idea of not collecting potentially personally-identifiable information. While it sounds silly, we all have [guilty pleasures](https://books.google.ca/books?id=HlbyMWKuQQUC&printsec=frontcover&dq=isbn:9780345518569&hl=en&sa=X&ved=0ahUKEwjAsfjXuMDSAhUS92MKHXLOCSkQ6AEIHDAA#v=onepage&q&f=false), and that data should be kept private!
 
-# run all tests
-npm test
+Instead, your list of authors and related settings are all stored in local storage. If you need to, you can copy that data to a new device or browser using the Import/Export functionality. I recognize that this is a tedious process; in the future I may introduce an "email me a link to copy the data" feature. Or maybe anonymously store data on a server and simply have a passkey to access it.
+
+Finally, this was my first time using Vue, so it should not be taken as an authoritative source on writing Vue apps.
+
+
+### Running Locally
+
+Running locally is, to be honest, a pain. The reason is that you'll need to supply your own API keys for Goodreads and Amazon Product Advertising. The latter requires a fairly lengthy sign-up, _and_ you need to make sales every few months, otherwise they'll close your account.
+
+If that hasn't discouraged you, you'll need to provide the following data, in a file located at `config/server.env.js`:
+
+```js
+module.exports = {
+  AWS_KEY: 'XXX',
+  AWS_SECRET: 'XXX',
+  ASSOCIATE_TAG: 'XXX',
+  GOODREADS_KEY: 'XXX',
+  GOODREADS_SECRET: 'XXX',
+};
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+You can launch a local instance with these two scripts (I know, I should really use webpack-hot-middleware and combine them, but I haven't found the time):
+
+```js
+npm run start:client:dev
+npm run start:server:dev
+```
