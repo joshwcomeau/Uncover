@@ -15,6 +15,9 @@ export const fetchTrackData = async (store, trackId) => {
 
   commit(TRACK_INFO_REQUEST, { trackId });
 
+  // NOTE: This feels a bit gross to me, but I don't yet know a better way.
+  // We need to fetch the now-updated track from the state, so that we can
+  // dispatch our next action.
   const track = store.state.tracks.byId[trackId];
   const populatedTrack = await getTrackItems(track);
 
@@ -30,11 +33,7 @@ export const updateTrackMetadata = (store, { trackId, meta }) => {
 
   commit(UPDATE_TRACK_METADATA, { trackId, meta });
 
-  // NOTE: This feels a bit gross to me, but I don't yet know a better way.
-  // We need to fetch the now-updated track from the state, so that we can
-  // dispatch our next action.
-  const track = store.state.tracks.byId[trackId];
-  dispatch('fetchTrackData', [track]);
+  dispatch('fetchTrackData', trackId);
 };
 
 export const deleteTrack = ({ commit }, trackId) => {
