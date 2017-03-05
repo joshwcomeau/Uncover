@@ -1,7 +1,7 @@
 const request = require('request-promise');
 const xmlParser = require('xml2json');
 
-const { GOODREADS_KEY } = require('../../config/server.env');
+const { GOODREADS_KEY } = require('../../../config/server.env');
 
 module.exports.searchForAuthor = async (searchTerm) => {
   const options = {

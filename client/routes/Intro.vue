@@ -147,11 +147,12 @@ export default {
     },
 
     deleteTrack() {
-      alert("Hey! Don't do that!")
+      // eslint-disable-next-line no-alert
+      alert("Hey! Don't do that!");
     },
 
     handleScroll() {
-      const elem = this.$refs.introElement
+      const elem = this.$refs.introElement;
       const elementBottom = elem.getBoundingClientRect().bottom;
 
       // Get the number of pixels of the visible form.

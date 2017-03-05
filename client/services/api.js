@@ -1,19 +1,21 @@
-const apiHost = `${process.env.HOST}:${process.env.PORT}`;
+import fetch from 'unfetch';
 
-console.log(`${process.env.HOST}:${process.env.PORT}`)
+// Connect to a custom port in development, but port 80 in production.
+const port = process.env.NODE_ENV === 'production' ? 80 : process.env.PORT;
+const apiHost = `${process.env.HOST}:${port}`;
 
 const toJson = response => response.json();
 
 
 export const getTrackInfo = ({ searchTerm, category }) => {
-  const path = `${apiHost}/get-track-info`;
+  const path = `${apiHost}/track-info`;
   const query = `searchTerm=${searchTerm}&category=${category}`;
 
   return fetch(`${path}?${query}`).then(toJson);
 };
 
 export const getTrackItems = (track) => {
-  const url = `${apiHost}/get-track-items`;
+  const url = `${apiHost}/track-items`;
 
   // Doing a POST because we're sending a lot of info for a GET.
   // Plus, in the future, this may also save the current 'snapshot' and return
