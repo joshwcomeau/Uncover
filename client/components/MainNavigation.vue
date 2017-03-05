@@ -8,7 +8,7 @@
       Import / Export
     </router-link>
     <router-link to="/add-track" class="nav-item bold">
-      Add Track
+      Add Author
     </router-link>
   </nav>
 </template>
