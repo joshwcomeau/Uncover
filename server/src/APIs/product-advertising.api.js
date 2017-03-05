@@ -1,6 +1,6 @@
 const amazon = require('amazon-product-api');
 
-const { AWS_KEY, AWS_SECRET, ASSOCIATE_TAG } = require('../../config/server.env');
+const { AWS_KEY, AWS_SECRET, ASSOCIATE_TAG } = require('../../../config/server.env');
 
 const client = amazon.createClient({
   awsId: AWS_KEY,
