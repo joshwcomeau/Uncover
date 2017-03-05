@@ -6,11 +6,17 @@
     <p>The feature-set is incredibly simple: a single page that shows you the newest books published by authors you choose. I do have features I plan on adding, but the core concept will remain the same: a simple, quick way to find new stuff you'll like.</p>
 
     <h2>Who</h2>
-    <p>Uncover is a 1-man side-project created by me, Joshua Comeau. It's the solution to a problem I've experienced in my own life, and I figured I'd share it with the world.</p>
+    <p>Uncover is a 1-man side-project created by me, <a href="https://twitter.com/JoshWComeau">Joshua Comeau</a>.</p>
 
     <h2>Why</h2>
-    <p>Uncover is a 1-man side-project created by me, Joshua Comeau. It's the solution to a problem I've experienced in my own life, and I figured I'd share it with the world.</p>
-    <p>I do not plan on turning it into a business. Nevertheless, <strong>I do earn a commission from Amazon</strong> if you click any of the books suggested to you by Uncover. This affiliate fee is actually necessary, as the API I use to gather information about new releases is reserved for affiliates who make the occasional sale. By making your Amazon purchases through Uncover links, you help ensure that Uncover remains sustainable.</p>
+    <p>This is very much a passion project for me. It's a very niche solution to a specific problem I've had, as both an avid audiobook fan <em>and</em> a person with a horrible memory. I have no idea if it's a useful tool for anyone else, but I hope it is!</p>
+
+    <h2>How</h2>
+    <p>When you add authors to track, that data is kept locally on your device. We do not have any sort of accounts system, nor do we store your data on any external servers. Your data sits on your computer or phone. When you load the main page, your browser sends that information to our server, and it uses it to check for the latest releases.</p>
+
+    <p>The server delegates the hard work to two third-party APIs: <a href="">Goodreads</a>, and <a href="">Amazon Product Advertising</a>. The server parses and filters that information, and then passes it along to the client.</p>
+
+    <p>Note that <strong>I do earn a commission from Amazon</strong> if you click any of the books suggested to you by Uncover. I am not looking to turn this into a viable business, but it'd be nice if it covered my server costs. Interestingly, Amazon actually <strong>requires</strong> that you make a sale every few months in order to use its API. In other words, if I didn't have these affiliate links, this service wouldn't exist.</p>
   </max-width-wrapper>
 </template>
 
