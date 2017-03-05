@@ -1,7 +1,7 @@
 // Flightplan - Deployment and Server Administration
 //
 // Acceptable arguments:
-//   --skip-webpack         If I've recently bundled, I can skip the bundling.
+//   --skip-build           If I've recently bundled, I can skip the build.
 //   --fresh-dependencies   Don't copy cached NPM module dependencies.
 
 'use strict';
@@ -12,11 +12,9 @@ const plan = require('flightplan');
 const _ = require('lodash');
 const dateFns = require('date-fns');
 
-const {
-  SERVER_HOST,
-  SERVER_USER,
-  SERVER_PASS
-} = require('./config/server.env');
+const config = require('./config/server.env');
+const SERVER_HOST = config.SERVER_HOST;
+const SERVER_USER = config.SERVER_USER;
 
 const privateKey = process.env.HOME + "/.ssh/id_rsa";
 
@@ -42,35 +40,27 @@ plan.target('production', {
 plan.local('deploy', local => {
   local.log(`Deployment started! Deploying to ${newDirectoryName}`);
 
-  if ( !plan.runtime.options['skip-webpack'] ) {
-    local.log('Webpacking everything up.');
+  if (!plan.runtime.options['skip-build']) {
+    local.log('Building client and server');
     local.exec('npm run build');
   } else {
     local.log('Skipping webpack bundle.')
   }
 
+  // This is indeed much less DRY than I would like.
+  // For some reason it fails when I try to build the file list in a loop.
   local.log('Copying files to remote');
-  // const filenames = ['index.html', 'dist', 'client', 'server', 'package.json'];
-  // const files = filenames.reduce( (memo, filename) => {
-  //   let file = local.find(filename, { silent: true }).stdout.split('\n');
-  //   memo.push(file);
-  //   return memo;
-  // }, []);
-
   const index     = local.find('index.html', {silent: true}).stdout.split('\n');
-  const dist      = local.find('dist', {silent: true}).stdout.split('\n');
   const config    = local.find('config', {silent: true}).stdout.split('\n');
+  const client    = local.find('client', {silent: true}).stdout.split('\n');
   const server    = local.find('server', {silent: true}).stdout.split('\n');
   const packjson  = local.find('package.json', {silent: true}).stdout.split('\n');
-  const files     = [].concat(index, dist, config, server, packjson);
+  const files     = [].concat(index, config, client, server, packjson);
 
   local.transfer(files, `/tmp/${newDirectoryName}`);
 });
 
 plan.remote( 'deploy', remote => {
-  remote.log('NODE VERSION')
-  remote.exec('node -v');
-
   remote.log('Move folder to web root')
   remote.sudo(`cp -R ${tempDir} ${newDirectory}`, { user });
   remote.rm(`-rf ${tempDir}`); // clean up after ourselves
@@ -91,19 +81,18 @@ plan.remote( 'deploy', remote => {
   remote.sudo(`ln -snf ${newDirectory} ${linkedDirectory}`, { user });
 
   // Start/Restart the application
-  // First, figure out if the app is already running
   let appDetails = remote.exec(`pm2 show ${appName}`, {failsafe: true});
   let appNotRunning = !!appDetails.stderr;
 
   if ( appNotRunning ) {
     remote.log("App is not already running. Starting it fresh")
-    remote.exec(`pm2 start ${linkedDirectory}/server --name="${appName}"`)
+    remote.exec(`pm2 start ${linkedDirectory}/server/dist --name="${appName}"`)
   } else {
     remote.log("Restarting app")
     remote.exec(`pm2 restart ${appName}`)
   }
 
   remote.log('Removing oldest copies of deploy');
-  remote.exec(`cd ${projectDir} && rm -rf \`ls -td wws_* | awk 'NR>${MAX_SAVED_DEPLOYS}'\``);
+  remote.exec(`cd ${projectDir} && rm -rf \`ls -td ${appName}_* | awk 'NR>${MAX_SAVED_DEPLOYS}'\``);
 
 });
