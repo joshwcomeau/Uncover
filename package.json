@@ -24,7 +24,6 @@
     "express": "4.14.1",
     "immutability-helper": "2.1.1",
     "lodash": "4.17.4",
-    "micro": "7.0.6",
     "pm2": "2.4.2",
     "request": "2.79.0",
     "request-promise": "4.1.1",
