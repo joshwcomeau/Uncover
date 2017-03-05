@@ -14,7 +14,7 @@
     <h2>How</h2>
     <p>When you add authors to track, that data is kept locally on your device. We do not have any sort of accounts system, nor do we store your data on any external servers. Your data sits on your computer or phone. When you load the main page, your browser sends that information to our server, and it uses it to check for the latest releases.</p>
 
-    <p>The server delegates the hard work to two third-party APIs: <a href="">Goodreads</a>, and <a href="">Amazon Product Advertising</a>. The server parses and filters that information, and then passes it along to the client.</p>
+    <p>The server delegates the hard work to two third-party APIs: <a href="https://www.goodreads.com/api" target="_blank">Goodreads</a>, and <a href="http://docs.aws.amazon.com/AWSECommerceService/latest/DG/Welcome.html" target="_blank">Amazon Product Advertising</a>. The server parses and filters that information, and then passes it along to the client.</p>
 
     <p>Note that <strong>I do earn a commission from Amazon</strong> if you click any of the books suggested to you by Uncover. I am not looking to turn this into a viable business, but it'd be nice if it covered my server costs. Interestingly, Amazon actually <strong>requires</strong> that you make a sale every few months in order to use its API. In other words, if I didn't have these affiliate links, this service wouldn't exist.</p>
   </max-width-wrapper>
