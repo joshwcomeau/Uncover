@@ -7,26 +7,22 @@
   "scripts": {
     "start:client:dev": "node build/dev-server.js",
     "start:server:dev": "nodemon server --exec babel-node",
-
     "build:client": "node build/build.js",
     "build:server": "babel server -d server/dist",
-    "build":"npm run build:client && npm run build:server",
-
+    "build": "npm run build:client && npm run build:server",
     "deploy": "NODE_ENV=production fly deploy:production",
     "deploy:no-build": "NODE_ENV=production fly deploy:production -skip-webpack",
-
     "test:unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test:server": "mocha test/server/specs",
     "test:e2e": "node test/e2e/runner.js",
     "test": "npm run test:server && npm run test:unit && npm run test:e2e",
-
     "lint": "eslint --ext .js,.vue client test/unit/specs test/e2e/specs"
   },
   "dependencies": {
     "amazon-product-api": "0.4.3",
     "async": "2.1.4",
     "babel-cli": "6.22.0",
-    "body-parser": "^1.16.1",
+    "body-parser": "1.17.0",
     "date-fns": "1.28.0",
     "express": "4.14.1",
     "immutability-helper": "2.1.1",
