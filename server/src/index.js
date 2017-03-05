@@ -9,6 +9,8 @@ const {
 
 const config = require('../../config/server.env');
 
+require('./polyfills');
+
 
 const app = express();
 
