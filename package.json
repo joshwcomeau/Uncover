@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start:client:dev": "node build/dev-server.js",
-    "start:server:dev": "nodemon server/src --exec babel-node",
+    "start:server:dev": "NODE_ENV=development nodemon server/src --exec babel-node",
     "build:client": "node build/build.js",
     "build:server": "babel server/src -d server/dist",
     "build": "npm run build:client && npm run build:server",

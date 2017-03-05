@@ -26,6 +26,20 @@ app.use(bodyParser.json());
 // when the root route is hit ('/').
 app.use(express.static(path.join(rootDir, 'client/dist')));
 
+// In development, our client and server run on separate servers.
+// Allow CORS so that the client can request data from the server.
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV !== 'development') {
+    next();
+    return;
+  }
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+  next();
+});
+
 
 ///////////////////////////
 ///////// ROUTES /////////
