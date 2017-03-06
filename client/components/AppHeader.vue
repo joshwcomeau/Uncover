@@ -62,4 +62,13 @@ export default {
   position: relative;
   height: $header-height;
 }
+
+@media (max-width: $break-mobile) {
+  .header h1 {
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+}
+
 </style>

@@ -67,13 +67,15 @@ export default {
 .input-with-underline {
   position: relative;
   display: inline-block;
+  width: 350px;
+  max-width: 100%;
   border-bottom: 2px solid $lightgray;
 
   input {
     position: relative;
     z-index: 1;
     padding: 8px 2px;
-    width: 350px;
+    width: 100%;
     margin-right: 1.5rem;
 
     &:focus + .border {

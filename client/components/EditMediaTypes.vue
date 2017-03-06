@@ -44,6 +44,8 @@
       />
       All
     </label>
+
+    <div class="clearfix"></div>
   </div>
 </template>
 
@@ -73,6 +75,11 @@ export default {
     margin-right: 2rem;
     font-size: 14px;
     font-weight: 400;
+    float: left;
+  }
+
+  .clearfix {
+    clear: both;
   }
 }
 </style>

@@ -59,4 +59,20 @@ export default {
     color: $yellow;
   }
 }
+
+@media (max-width: $break-mobile) {
+  .main-navigation {
+    font-size: 14px;
+    justify-content: center;
+
+    &:first-of-type {
+      padding-left: 0;
+    }
+
+    &:last-of-type {
+      padding-right: 0;
+    }
+  }
+}
+
 </style>

@@ -106,6 +106,10 @@ export default {
     window.addEventListener('scroll', this.handleScroll);
   },
 
+  mounted() {
+    this.handleScroll();
+  },
+
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
   },
@@ -293,6 +297,20 @@ $add-track-height: 645px;
   z-index: 2;
   height: 1px;
   background: rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: $break-mobile) {
+  .intro {
+    font-size: 18px;
+
+    h2 {
+      font-size: 28px;
+    }
+
+    ol {
+      padding-left: 1rem;
+    }
+  }
 }
 
 </style>

@@ -38,4 +38,12 @@ export default {
     max-width: $maxWidthNarrow;
   }
 }
+
+@media (max-width: $break-mobile) {
+  .max-width-wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 </style>

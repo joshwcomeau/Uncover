@@ -26,11 +26,9 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="form-section">
-        <h4>Media Type</h4>
-        <edit-media-types v-model="mediaTypes" />
-      </div>
+    <div class="form-section">
+      <h4>Media Type</h4>
+      <edit-media-types v-model="mediaTypes" />
     </div>
 
     <footer>
@@ -278,16 +276,6 @@ label {
   }
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
-
-  & > div {
-    flex: 1;
-    padding-right: 1rem;
-  }
-}
-
 footer {
   text-align: center;
   margin-top: 2rem;
@@ -295,6 +283,12 @@ footer {
   .add-track-button {
     width: 250px;
     max-width: 100%;
+  }
+}
+
+@media (max-width: $break-mobile) {
+  .add-track-form {
+    // padding: $content-padding / 2;
   }
 }
 </style>

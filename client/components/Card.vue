@@ -24,4 +24,12 @@ export default {
   box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
   border-radius: 2px;
 }
+
+@media (max-width: $break-mobile) {
+  .card {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 0;
+  }
+}
 </style>
