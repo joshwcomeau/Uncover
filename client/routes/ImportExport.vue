@@ -6,8 +6,13 @@
     </h2>
 
     <p>
-      Uncover does not have any accounts system, for the simple reason that it doesn't really need one, and nobody likes signing up for things.
+      Uncover does not have any accounts system - this is by design, for two reasons:
     </p>
+
+    <ol>
+      <li><strong>Less friction.</strong> No convoluted sign-up process, you can start using Uncover immediately.</li>
+      <li><strong>More secure.</strong> By not storing you data in any server database, you can rest assured that nobody will discover your guilty pleasures. Your data lives on your device.
+    </ol>
 
     <p>
       The drawback to this system is that your data won't come with you from device to device: We store your settings on your phone or computer directly.
@@ -113,6 +118,14 @@ export default {
   h4 {
     color: $yellow;
     margin: 2rem 0 1rem;
+  }
+
+  ol {
+    margin-bottom: 2rem;
+  }
+
+  li {
+    margin-bottom: 1rem;
   }
 
   pre {
