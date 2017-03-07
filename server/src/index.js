@@ -64,6 +64,12 @@ app.post('/track-items', (req, res) => {
     });
 });
 
+// Redirect all other GET requests to the index route, so that vue-router
+// can take over.
+app.get('*', (req, res) => {
+  const indexHtml = path.join(rootDir, 'client/dist/index.html');
+  res.sendFile(indexHtml);
+});
 
 ///////////////////////////
 ///////// RUN ////////////
