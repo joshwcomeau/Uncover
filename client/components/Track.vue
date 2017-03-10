@@ -1,6 +1,8 @@
 <!-- HTML -->
 <template>
   <card-component class="track" :class="category">
+    <div class="notification-bar" :class="{ bright: hasUnseenRelease }"></div>
+
     <header>
       <div class="header-details">
         <img class="track-image" :src="image" />
@@ -106,6 +108,7 @@ export default {
     meta: Object,
     items: Array,
     isFetching: Boolean,
+    hasUnseenRelease: Boolean,
     fetchTrackData: Function,
     updateTrackMetadata: Function,
     deleteTrack: Function,
@@ -157,13 +160,17 @@ export default {
   display: flex;
   color: $black;
 
-  &::before {
-    content: '';
+  .notification-bar {
     position: absolute;
     top: $track-padding;
     left: $track-padding;
     bottom: $track-padding;
+    background: $gray;
     width: 5px;
+
+    &.bright {
+      background: $blue;
+    }
   }
 
   &.author::before {
@@ -310,7 +317,7 @@ export default {
     flex-direction: column;
     height: auto;
 
-    &:before {
+    .notification-bar {
       display: none;
     }
 

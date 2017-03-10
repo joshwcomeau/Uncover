@@ -288,7 +288,7 @@ footer {
 
 @media (max-width: $break-mobile) {
   .add-track-form {
-    // padding: $content-padding / 2;
+    padding: $content-padding * 0.75;
   }
 }
 </style>

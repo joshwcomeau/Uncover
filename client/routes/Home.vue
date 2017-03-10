@@ -13,6 +13,7 @@
           :image="track.image"
           :category="track.category"
           :isFetching="track.isFetching"
+          :hasUnseenRelease="track.hasUnseenRelease"
           :meta="track.meta"
           :items="track.items"
           :fetchTrackData="fetchTrackData"

@@ -27,9 +27,8 @@ export default {
 
 @media (max-width: $break-mobile) {
   .card {
-    margin-left: -1rem;
-    margin-right: -1rem;
-    border-radius: 0;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
   }
 }
 </style>

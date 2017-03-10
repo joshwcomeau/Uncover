@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import get from 'lodash/get';
 import omit from 'lodash/omit';
 
 export const DELETE_TRACK = 'DELETE_TRACK';
@@ -53,9 +54,20 @@ export default {
   },
 
   [TRACK_INFO_RECEIVE]: (state, { populatedTrack }) => {
+    const track = state.tracks.byId[populatedTrack.id];
+
+    // Check to see if the track has had a new release since our last update.
+    const currentTrackNewestRelease = get(track, 'items[0].releaseDate');
+    const nextTrackNewestRelease = get(populatedTrack, 'items[0].releaseDate');
+    const hasUnseenRelease = (
+      nextTrackNewestRelease &&
+      nextTrackNewestRelease !== currentTrackNewestRelease
+    );
+
     state.tracks.byId[populatedTrack.id] = {
       ...populatedTrack,
       isFetching: false,
+      hasUnseenRelease,
     };
 
     return state;
