@@ -6,7 +6,7 @@
     <p>The feature-set is incredibly simple: a single page that shows you the newest books published by authors you choose. I do have features I plan on adding, but the core concept will remain the same: a simple, quick way to find new stuff you'll like.</p>
 
     <h2>Who</h2>
-    <p>Uncover is a 1-man side-project created by me, <a href="https://twitter.com/JoshWComeau">Joshua Comeau</a>.</p>
+    <p>Uncover is a 1-man side-project created by me, <a href="https://github.com/joshwcomeau">Joshua Comeau</a>.</p>
 
     <h2>Why</h2>
     <p>This is very much a passion project for me. It's a very niche solution to a specific problem I've had, as both an avid audiobook fan <em>and</em> a person with a horrible memory. I have no idea if it's a useful tool for anyone else, but I hope it is!</p>

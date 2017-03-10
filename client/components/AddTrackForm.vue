@@ -5,7 +5,7 @@
       <h4>Author</h4>
       <input-with-underline
         v-model="searchTerm"
-        placeholder="eg. Drew Hayes"
+        placeholder="eg. Scott Meyer"
         :iconName="searchIcon.name"
         :iconColor="searchIcon.color"
         :iconSpin="searchIcon.spin"

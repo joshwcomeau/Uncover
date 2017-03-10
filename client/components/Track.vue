@@ -154,6 +154,12 @@ export default {
 <style scoped lang="scss">
 @import '../styles/variables';
 
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 .track {
   position: relative;
   height: $track-height;
@@ -169,7 +175,18 @@ export default {
     width: 5px;
 
     &.bright {
-      background: $blue;
+      background: darken($blue, 20%);
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: $blue;
+        animation: fadeInOut 4000ms infinite
+      }
     }
   }
 

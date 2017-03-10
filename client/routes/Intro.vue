@@ -40,6 +40,7 @@
               :image="sampleTrack.image"
               :category="sampleTrack.category"
               :isFetching="isFetching"
+              :hasUnseenRelease="true"
               :meta="sampleTrack.meta"
               :items="sampleTrack.items"
               :fetchTrackData="fetchTrackData"
@@ -49,6 +50,10 @@
           </li>
         </ul>
 
+        <p class="product-description">
+          The row is loaded with the author's recent releases, sorted chronologically so that the newest release is always first. The bar along the left edge glows blue when there's been a new release since your last visit.
+        </p>
+
         <h3>🚀 Features</h3>
 
         <ul class="features">
@@ -57,9 +62,6 @@
           </li>
           <li>
             <strong>Customizable media types</strong>. For each author, you can select which media types you care about, between print, e-book, and audiobook.
-          </li>
-          <li>
-            <strong>Cool stuff on the way</strong>. Uncover will soon handle a wider variety of content to track - TV shows, audiobook narrators, movie directors...
           </li>
           <li>
             <strong>Open-source</strong>. If you're a web developer, you can <a href="https://github.com/joshwcomeau/Uncover" target="_blank">fork it</a> and tweak it however you like.
@@ -247,6 +249,10 @@ $add-track-height: 645px;
 
   .track-list {
     margin-top: 4rem;
+  }
+
+  .product-description {
+    font-size: 16px;
   }
 
   .features {
