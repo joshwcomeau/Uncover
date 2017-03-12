@@ -1,7 +1,7 @@
 import fetch from 'unfetch';
 
-// Connect to a custom port in development, but port 80 in production.
-const port = process.env.NODE_ENV === 'production' ? 80 : process.env.PORT;
+// Connect to a custom port in development, but port 443 in production.
+const port = process.env.NODE_ENV === 'production' ? 443 : process.env.PORT;
 const apiHost = `${process.env.HOST}:${port}`;
 
 const toJson = response => response.json();

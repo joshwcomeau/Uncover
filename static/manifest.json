@@ -1,0 +1,13 @@
+{
+  "background_color": "#202020",
+  "name": "Uncover",
+  "short_name": "Uncover",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/static/manifest_icon.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}
