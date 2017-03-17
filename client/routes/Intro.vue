@@ -73,7 +73,13 @@
       </max-width-wrapper>
     </div>
 
-    <section class="add-track" :style="{ transform: addTrackTranslate }">
+    <section
+      class="add-track"
+      :style="{
+        transform: addTrackTranslate,
+        opacity: addTrackIsVisible ? 1 : 0,
+      }"
+    >
       <div class="add-track-contents" :style="{ opacity: addTrackOpacity }">
         <max-width-wrapper narrow style="{ opacity: addTrackOpacity }">
           <h2>Add Your First Author</h2>
@@ -92,13 +98,15 @@ import { mapGetters } from 'vuex';
 import clamp from 'lodash/clamp';
 
 import { getTrackItems } from 'services/api';
+import { BREAK_MOBILE, HEADER_HEIGHT } from 'constants';
 import AddTrackForm from 'components/AddTrackForm';
 import MaxWidthWrapper from 'components/MaxWidthWrapper';
 import Track from 'components/Track';
 
 
-// TODO: Is there a way to share this value between JS and SCSS?
-const totalFormHeight = 650;
+// NOTE: This variable is duplicated in scss below
+// TODO: A solution for sharing variables between scss and js.
+const totalFormHeight = 645;
 
 export default {
   name: 'intro',
@@ -120,6 +128,7 @@ export default {
     return {
       addTrackOpacity: 0,
       addTrackTranslate: 0,
+      addTrackIsVisible: false,
       sampleTrack: {
         id: '7077654',
         name: 'Drew Hayes',
@@ -158,6 +167,26 @@ export default {
     },
 
     handleScroll() {
+      // We do a fancy effect where the add-track form is underneath the main
+      // content, visible as you scroll down.
+      //
+      // By default, though, it's easy to miss that there's a form down there;
+      // with space for the footer and some bottom padding, there's several
+      // hundred pixels of dead space.
+      //
+      // To make it obvious sooner that there's more content below, the form
+      // slides up as you scroll, so that it's visible earlier. Plus, it
+      // looks kinda neat :)
+      //
+      // The add-track form should only be shown when we've scrolled enough
+      // to hide the header. This is to fix a bug on short screens, where the
+      // add-track form would block part of the header.
+      this.addTrackIsVisible = window.scrollY > HEADER_HEIGHT;
+
+      if (!this.addTrackIsVisible) {
+        return;
+      }
+
       const elem = this.$refs.introElement;
       const elementBottom = elem.getBoundingClientRect().bottom;
 
@@ -174,9 +203,12 @@ export default {
       this.addTrackOpacity = opacity;
 
       // Calculate the translate, which is inversely related to the
-      // visible form height
-      const translate = 125 - Math.ceil(opacity * 125);
-      this.addTrackTranslate = `translateY(${translate}px)`;
+      // visible form height.
+      // Only do this trick on desktop; it's not super smooth on mobile.
+      if (window.innerWidth > BREAK_MOBILE) {
+        const translate = 125 - Math.ceil(opacity * 125);
+        this.addTrackTranslate = `translateY(${translate}px)`;
+      }
     },
   },
 };
@@ -187,6 +219,8 @@ export default {
 <style scoped lang="scss">
 @import '../styles/variables';
 
+// NOTE: This variable is duplicated in js above.
+// TODO: A solution for sharing variables between scss and js.
 $add-track-height: 645px;
 
 .intro {
@@ -309,12 +343,17 @@ $add-track-height: 645px;
   .intro {
     font-size: 18px;
 
-    h2 {
-      font-size: 28px;
-    }
-
     ol {
       padding-left: 1rem;
+    }
+  }
+
+  .add-track {
+    padding-top: 5rem;
+    padding-bottom: 1rem;
+
+    h2 {
+      font-size: 28px;
     }
   }
 }

@@ -15,13 +15,18 @@ $darkgray: #202020;
 $black: #111111;
 
 // BREAKPOINTS
+// NOTE: This variable is duplicated in JS (constants/index, BREAK_MOBILE)
+// TODO: A solution for sharing variables between scss and js.
 $break-mobile: 600px;
 
 // SIZES
 $maxWidth: 1000px;
 $maxWidthNarrow: 650px;
 
+// NOTE: This variable is duplicated in JS (constants/index, HEADER_HEIGHT)
+// TODO: A solution for sharing variables between scss and js.
 $header-height: 150px;
+
 $footer-height: 75px;
 
 $track-height: 160px;
