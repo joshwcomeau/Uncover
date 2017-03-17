@@ -96,6 +96,7 @@
 /* eslint-disable no-mixed-operators */
 import { mapGetters } from 'vuex';
 import clamp from 'lodash/clamp';
+import throttle from 'lodash/throttle';
 
 import { getTrackItems } from 'services/api';
 import { BREAK_MOBILE, HEADER_HEIGHT } from 'constants';
@@ -113,7 +114,9 @@ export default {
   components: { AddTrackForm, TrackComponent: Track, MaxWidthWrapper },
 
   created() {
-    window.addEventListener('scroll', this.handleScroll);
+    this.handleScrollThrottled = throttle(this.handleScroll, 18);
+
+    window.addEventListener('scroll', this.handleScrollThrottled);
   },
 
   mounted() {
@@ -121,7 +124,7 @@ export default {
   },
 
   beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('scroll', this.handleScrollThrottled);
   },
 
   data() {
