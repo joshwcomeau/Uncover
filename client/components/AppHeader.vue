@@ -43,7 +43,6 @@ export default {
   left: 0;
   right: 0;
   height: $header-height;
-  background: $black;
 
   h1 {
     position: absolute;

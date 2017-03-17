@@ -129,7 +129,7 @@ export default {
 
   data() {
     return {
-      addTrackOpacity: 0,
+      addTrackOpacity: 1,
       addTrackTranslate: 0,
       addTrackIsVisible: false,
       sampleTrack: {
@@ -190,6 +190,11 @@ export default {
         return;
       }
 
+      // Don't do the translate/opacity thing on mobile. It's not performant.
+      if (window.innerWidth < BREAK_MOBILE) {
+        return;
+      }
+
       const elem = this.$refs.introElement;
       const elementBottom = elem.getBoundingClientRect().bottom;
 
@@ -207,11 +212,8 @@ export default {
 
       // Calculate the translate, which is inversely related to the
       // visible form height.
-      // Only do this trick on desktop; it's not super smooth on mobile.
-      if (window.innerWidth > BREAK_MOBILE) {
-        const translate = 125 - Math.ceil(opacity * 125);
-        this.addTrackTranslate = `translateY(${translate}px)`;
-      }
+      const translate = 125 - Math.ceil(opacity * 125);
+      this.addTrackTranslate = `translateY(${translate}px)`;
     },
   },
 };
@@ -345,6 +347,10 @@ $add-track-height: 645px;
 @media (max-width: $break-mobile) {
   .intro {
     font-size: 18px;
+
+    h3 {
+      font-size: 24px;
+    }
 
     ol {
       padding-left: 1rem;
